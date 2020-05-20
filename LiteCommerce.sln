@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{47C84FC6-5D19-404B-9C91-FF07544CECCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{814C84CA-1AC5-491C-B3B5-AAC446DABBC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteCommerce.Admin", "LiteCommerce.Admin\LiteCommerce.Admin.csproj", "{EF36655B-E131-4FD4-844E-E614B3EAA817}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThayGiao", "ThayGiao", "{BE685392-6D8A-4A00-B7E5-FF73F37D011D}"
+	ProjectSection(SolutionItems) = preProject
+		ThayGiao.txt = ThayGiao.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF36655B-E131-4FD4-844E-E614B3EAA817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF36655B-E131-4FD4-844E-E614B3EAA817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF36655B-E131-4FD4-844E-E614B3EAA817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF36655B-E131-4FD4-844E-E614B3EAA817}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EF36655B-E131-4FD4-844E-E614B3EAA817} = {47C84FC6-5D19-404B-9C91-FF07544CECCB}
+	EndGlobalSection
+EndGlobal
