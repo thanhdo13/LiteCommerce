@@ -14,6 +14,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThayGiao", "ThayGiao", "{BE
 		ThayGiao.txt = ThayGiao.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteCommerce.DomainModels", "LiteCommerce.DomainModels\LiteCommerce.DomainModels.csproj", "{BA1A263C-5CD7-473F-B771-7F46333B607F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteCommerce.DataLayers", "LiteCommerce.DataLayers\LiteCommerce.DataLayers.csproj", "{17FF14A9-A98A-424C-9487-DC3C9DCB6AD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteCommerce.BusinessLayers", "LiteCommerce.BusinessLayers\LiteCommerce.BusinessLayers.csproj", "{455BC997-EFEE-4D3C-9D9F-6A1B957809D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,11 +30,26 @@ Global
 		{EF36655B-E131-4FD4-844E-E614B3EAA817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF36655B-E131-4FD4-844E-E614B3EAA817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF36655B-E131-4FD4-844E-E614B3EAA817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA1A263C-5CD7-473F-B771-7F46333B607F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA1A263C-5CD7-473F-B771-7F46333B607F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA1A263C-5CD7-473F-B771-7F46333B607F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA1A263C-5CD7-473F-B771-7F46333B607F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17FF14A9-A98A-424C-9487-DC3C9DCB6AD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17FF14A9-A98A-424C-9487-DC3C9DCB6AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17FF14A9-A98A-424C-9487-DC3C9DCB6AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17FF14A9-A98A-424C-9487-DC3C9DCB6AD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{455BC997-EFEE-4D3C-9D9F-6A1B957809D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{455BC997-EFEE-4D3C-9D9F-6A1B957809D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{455BC997-EFEE-4D3C-9D9F-6A1B957809D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{455BC997-EFEE-4D3C-9D9F-6A1B957809D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EF36655B-E131-4FD4-844E-E614B3EAA817} = {47C84FC6-5D19-404B-9C91-FF07544CECCB}
+		{BA1A263C-5CD7-473F-B771-7F46333B607F} = {814C84CA-1AC5-491C-B3B5-AAC446DABBC7}
+		{17FF14A9-A98A-424C-9487-DC3C9DCB6AD3} = {814C84CA-1AC5-491C-B3B5-AAC446DABBC7}
+		{455BC997-EFEE-4D3C-9D9F-6A1B957809D1} = {814C84CA-1AC5-491C-B3B5-AAC446DABBC7}
 	EndGlobalSection
 EndGlobal

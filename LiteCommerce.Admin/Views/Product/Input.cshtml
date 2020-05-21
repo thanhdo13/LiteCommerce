@@ -1,0 +1,75 @@
+﻿
+@{
+}
+<div class="box box-primary">
+    <form role="form">
+        <div class="box-header text-right">
+            <a href="~/Product">Back to List</a>
+        </div>
+        <div class="box-body">
+            <div class="form-group">
+                <label>ProductName:</label>
+                <input type="text" class="form-control" placeholder="ProductName">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Supplier:</label>
+                    <select class="form-control">
+                        <option value="">-- Choose Supplier --</option>
+                        <option value="1">Exotic Liquids</option>
+                        <option value="2">New Orleans Cajun Delights</option>
+                        <option value="3">Grandma Kelly's Homestead</option>
+                        <option value="4">Tokyo Traders</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label>Category:</label>
+                    <select class="form-control">
+                        <option value="">-- Choose Category --</option>
+                        <option value="1">Beverages</option>
+                        <option value="2">Condiments</option>
+                        <option value="3">Confections</option>
+                        <option value="4">Dairy Products</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>QuantityPerUnit:</label>                
+                        <input type="text" class="form-control" placeholder="QuantityPerUnit">   
+                </div>
+                <div class="col-sm-6">
+                    <label>UnitPrice:</label>
+                        <input type="text" class="form-control" placeholder="UnitPrice">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label>Description:</label>
+                    <textarea class="form-control" rows="4" name="note"></textarea>
+                </div>
+            </div> 
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <div class="pull-left image">
+                        <img src="~/Themes/AdminLTE/dist/img/avatar.png" height="100px" width="100px" class="img-circle" alt="User Image">
+                    </div>
+                    <div>
+                        <label style="margin-left: 10px;" for="exampleInputFile">Photo Input</label>
+                        <label style="margin-left: 10px; color:#555; "> <input type="file" id="exampleInputFile"></label>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a class="btn btn-sm btn-default" href="~/Order">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+

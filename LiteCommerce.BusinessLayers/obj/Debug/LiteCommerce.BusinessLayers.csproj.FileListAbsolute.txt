@@ -1,0 +1,9 @@
+D:\C#\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.BusinessLayers.dll
+D:\C#\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.BusinessLayers.pdb
+D:\C#\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.DataLayers.dll
+D:\C#\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.DomainModels.dll
+D:\C#\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.DataLayers.pdb
+D:\C#\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.DomainModels.pdb
+D:\C#\LiteCommerce\LiteCommerce.BusinessLayers\obj\Debug\LiteCommerce.BusinessLayers.csprojResolveAssemblyReference.cache
+D:\C#\LiteCommerce\LiteCommerce.BusinessLayers\obj\Debug\LiteCommerce.BusinessLayers.dll
+D:\C#\LiteCommerce\LiteCommerce.BusinessLayers\obj\Debug\LiteCommerce.BusinessLayers.pdb

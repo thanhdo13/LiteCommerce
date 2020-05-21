@@ -51,3 +51,9 @@ D:\C#\LiteCommerce\LiteCommerce.Admin\bin\Newtonsoft.Json.xml
 D:\C#\LiteCommerce\LiteCommerce.Admin\obj\Debug\LiteCommerce.Admin.dll
 D:\C#\LiteCommerce\LiteCommerce.Admin\obj\Debug\LiteCommerce.Admin.pdb
 D:\C#\LiteCommerce\LiteCommerce.Admin\obj\Debug\LiteCommerce.Admin.csprojResolveAssemblyReference.cache
+D:\C#\LiteCommerce\LiteCommerce.Admin\bin\LiteCommerce.BusinessLayers.dll
+D:\C#\LiteCommerce\LiteCommerce.Admin\bin\LiteCommerce.DataLayers.dll
+D:\C#\LiteCommerce\LiteCommerce.Admin\bin\LiteCommerce.DomainModels.dll
+D:\C#\LiteCommerce\LiteCommerce.Admin\bin\LiteCommerce.BusinessLayers.pdb
+D:\C#\LiteCommerce\LiteCommerce.Admin\bin\LiteCommerce.DataLayers.pdb
+D:\C#\LiteCommerce\LiteCommerce.Admin\bin\LiteCommerce.DomainModels.pdb

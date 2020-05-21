@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BusinessLayerConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -7149,6 +7150,7 @@
     <Content Include="Views\Shipper\Input.cshtml" />
     <Content Include="Views\Category\Input.cshtml" />
     <Content Include="Views\Employee\Input.cshtml" />
+    <Content Include="Views\Product\Input.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -7162,6 +7164,20 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LiteCommerce.BusinessLayers\LiteCommerce.BusinessLayers.csproj">
+      <Project>{455bc997-efee-4d3c-9d9f-6a1b957809d1}</Project>
+      <Name>LiteCommerce.BusinessLayers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LiteCommerce.DataLayers\LiteCommerce.DataLayers.csproj">
+      <Project>{17ff14a9-a98a-424c-9487-dc3c9dcb6ad3}</Project>
+      <Name>LiteCommerce.DataLayers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LiteCommerce.DomainModels\LiteCommerce.DomainModels.csproj">
+      <Project>{ba1a263c-5cd7-473f-b771-7f46333b607f}</Project>
+      <Name>LiteCommerce.DomainModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
