@@ -4,37 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LiteCommerce.DomainModels;
-using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
-    public class SupplierDAL : ISupplierDAL
+    public class EmployeeDAL : IEmployeeDAL
     {
         private string connectionString;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="connectionString"></param>
-        public SupplierDAL(string connectionString)
+        public EmployeeDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public int Add(Supplier data)
+        public int Add(Employee data)
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="searchValue"></param>
-        /// <returns></returns>
+
         public int Count(string searchValue)
         {
             int count = 0;
@@ -44,48 +34,34 @@ namespace LiteCommerce.DataLayers.SqlServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"select COUNT(*) from Suppliers
-                                    where @searchValue = N'' or CompanyName like @searchValue";
+                cmd.CommandText = @"select COUNT(*) from Employees
+                                    where @searchValue = N'' or LastName like @searchValue or FirstName like @searchValue";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@searchValue", searchValue);
                 count = Convert.ToInt32(cmd.ExecuteScalar());
                 connection.Close();
             }
-                return count;
+            return count;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="supplierIDs"></param>
-        /// <returns></returns>
-        public int Delete(int[] supplierIDs)
+
+        public int Delete(int[] employeeIDs)
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="supplierID"></param>
-        /// <returns></returns>
-        public Supplier Get(int supplierID)
+
+        public Supplier Get(int employeeID)
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="searchValue"></param>
-        /// <returns></returns>
-        public List<Supplier> List(int page, int pageSize, string searchValue)
+
+        public List<Employee> List(int page, int pageSize, string searchValue)
         {
-           List<Supplier> data = new List<Supplier>();
+            List<Employee> data = new List<Employee>();
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
             // taoj ket noi
-           using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 // Tạo lệnh thực thi truy vấn dữ liệu
@@ -94,14 +70,13 @@ namespace LiteCommerce.DataLayers.SqlServer
                                     from
                                     (
 
-                                        select ROW_NUMBER() over(order by CompanyName) as RowNumber,
-                                            Suppliers.*
-                                        from Suppliers
-
-                                        where (@searchValue = N'') or(CompanyName like @searchValue)
+	                                    select ROW_NUMBER() over (order by LastName) as RowNumber,
+		                                    Employees.*
+	                                    from Employees
+	                                    where (@searchValue = N'') or (LastName like @searchValue) or (FirstName like @searchValue)
 
                                     ) as t
-                                    where t.RowNumber between (@page - 1) * @pageSize + 1 and @page * @pageSize";
+                                    where t.RowNumber between (@page-1)* @pageSize +1 and @page*@pageSize";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@page", page);
@@ -112,18 +87,22 @@ namespace LiteCommerce.DataLayers.SqlServer
                 {
                     while (dbReader.Read())
                     {
-                        data.Add(new Supplier()
+                        data.Add(new Employee()
                         {
-                            SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
-                            CompanyName = Convert.ToString(dbReader["CompanyName"]),
-                            ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
+                            EmployeeID = Convert.ToInt32(dbReader["EmployeeID"]),
+                            FirstName = Convert.ToString(dbReader["FirstName"]),
+                            LastName = Convert.ToString(dbReader["LastName"]),
                             Address = Convert.ToString(dbReader["Address"]),
                             City = Convert.ToString(dbReader["City"]),
-                            ContactName = Convert.ToString(dbReader["ContactName"]),
+                            BirthDate = Convert.ToDateTime(dbReader["BirthDate"]),
+                            HireDate = Convert.ToDateTime(dbReader["HireDate"]),
                             Country = Convert.ToString(dbReader["Country"]),
-                            Fax = Convert.ToString(dbReader["Fax"]),
-                            HomePage = Convert.ToString(dbReader["HomePage"]),
-                            Phone = Convert.ToString(dbReader["Phone"])
+                            Notes = Convert.ToString(dbReader["Notes"]),
+                            HomePhone = Convert.ToString(dbReader["HomePhone"]),
+                            PhotoPath = Convert.ToString(dbReader["PhotoPath"]),
+                            Password = Convert.ToString(dbReader["Password"]),
+                            Email = Convert.ToString(dbReader["Email"]),
+                            Title = Convert.ToString(dbReader["Title"])
                         });
                     }
                 }
@@ -131,12 +110,8 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="supplierID"></param>
-        /// <returns></returns>
-        public bool Update(Supplier supplierID)
+
+        public bool Update(Employee employeeID)
         {
             throw new NotImplementedException();
         }

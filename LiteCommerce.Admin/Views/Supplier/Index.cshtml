@@ -1,24 +1,35 @@
-﻿@model IEnumerable<LiteCommerce.DomainModels.Supplier>
+﻿@model LiteCommerce.Admin.Models.SupplierPaginationResult
 @{
     ViewBag.Title = "Manage Suppliers";
-    int i = 0;
+    int i = (Model.Page - 1) * Model.PageSize;
 }
 <div class="box box-primary">
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Input search value...">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-flat">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/Supplier" method="get">
+            <div class="input-group input-group-sm">
+                <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
 <div class="container-fluid row" style="margin-bottom:10px;">
+    @if (Model.PageCount != 0)
+    {
     <div class="col-sm-8">
-        There are <b>@ViewBag.RowCount</b> Suppliers. Page 1/100
+        There are <b>@Model.RowCount</b> Suppliers. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount) 
     </div>
+    }
+    else
+    {
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Suppliers. Page 0/0.
+        </div>
+    }
     <div class="col-md-4 text-right">
         <div class="btn-group">
             <a href="~/Supplier/Input" class="btn btn-sm btn-primary">Add Supplier</a>
@@ -42,7 +53,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var supplier in Model)
+                @foreach (var supplier in Model.Data)
                 {
                     <tr>
                         <td>
@@ -81,11 +92,71 @@
     </div>
     <div class="box-footer clearfix text-center">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
+            <li><a href="~/Supplier?page=1&searchValue=@Model.SearchValue">«</a></li>
+            @if (Model.Page > 3 && Model.Page < Model.PageCount - 3)
+            {
+                if (Model.Page - 3 > 1)
+                {
+                    <li><a>...</a></li>
+                }
+                for (int page = Model.Page - 3; page <= Model.Page + 3; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Supplier?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+                if (Model.Page + 3 < Model.PageCount)
+                {
+                    <li><a>...</a></li>
+                }
+            }
+            else if (Model.Page <= 3)
+            {
+                var testpage = Model.PageCount;
+                if (Model.PageCount > 4)
+                {
+                    testpage = Model.Page + 2;
+                }
+                for (int page = 1; page <= testpage; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Supplier?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+                if (Model.Page <= Model.PageCount - 3)
+                {
+                    <li><a>...</a></li>
+                }
+            }
+            else
+            {
+                if (Model.PageCount - 3 > 0)
+                {
+                    <li><a>...</a></li>
+                }
+                for (int page = Model.Page - 2; page <= Model.PageCount; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Supplier?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+            }
+            <li><a href="~/Supplier?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
         </ul>
     </div>
 </div>

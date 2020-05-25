@@ -1,1 +1,3 @@
-viewBag
+﻿viewBag
+thay đổi nút phân trang thành 3 4 ô liền cạnh
+hoàn thành còn lại trừ product

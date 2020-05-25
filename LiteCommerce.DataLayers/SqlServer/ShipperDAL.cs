@@ -4,20 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LiteCommerce.DomainModels;
-using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace LiteCommerce.DataLayers.SqlServer
-{
-    public class SupplierDAL : ISupplierDAL
+{  
+    public class ShipperDAL : IShipperDAL
     {
         private string connectionString;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="connectionString"></param>
-        public SupplierDAL(string connectionString)
+        public ShipperDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
@@ -26,7 +21,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public int Add(Supplier data)
+        public int Add(Shipper data)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +39,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"select COUNT(*) from Suppliers
+                cmd.CommandText = @"select COUNT(*) from Shippers
                                     where @searchValue = N'' or CompanyName like @searchValue";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
@@ -52,23 +47,23 @@ namespace LiteCommerce.DataLayers.SqlServer
                 count = Convert.ToInt32(cmd.ExecuteScalar());
                 connection.Close();
             }
-                return count;
+            return count;
         }
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierIDs"></param>
+        /// <param name="shipperIDs"></param>
         /// <returns></returns>
-        public int Delete(int[] supplierIDs)
+        public int Delete(int[] shipperIDs)
         {
             throw new NotImplementedException();
         }
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierID"></param>
+        /// <param name="shipperID"></param>
         /// <returns></returns>
-        public Supplier Get(int supplierID)
+        public Shipper Get(int shipperID)
         {
             throw new NotImplementedException();
         }
@@ -79,13 +74,13 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public List<Supplier> List(int page, int pageSize, string searchValue)
+        public List<Shipper> List(int page, int pageSize, string searchValue)
         {
-           List<Supplier> data = new List<Supplier>();
+            List<Shipper> data = new List<Shipper>();
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
             // taoj ket noi
-           using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 // Tạo lệnh thực thi truy vấn dữ liệu
@@ -95,8 +90,8 @@ namespace LiteCommerce.DataLayers.SqlServer
                                     (
 
                                         select ROW_NUMBER() over(order by CompanyName) as RowNumber,
-                                            Suppliers.*
-                                        from Suppliers
+                                            Shippers.*
+                                        from Shippers
 
                                         where (@searchValue = N'') or(CompanyName like @searchValue)
 
@@ -112,17 +107,10 @@ namespace LiteCommerce.DataLayers.SqlServer
                 {
                     while (dbReader.Read())
                     {
-                        data.Add(new Supplier()
+                        data.Add(new Shipper()
                         {
-                            SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
+                            ShipperID = Convert.ToInt32(dbReader["ShipperID"]),
                             CompanyName = Convert.ToString(dbReader["CompanyName"]),
-                            ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
-                            Address = Convert.ToString(dbReader["Address"]),
-                            City = Convert.ToString(dbReader["City"]),
-                            ContactName = Convert.ToString(dbReader["ContactName"]),
-                            Country = Convert.ToString(dbReader["Country"]),
-                            Fax = Convert.ToString(dbReader["Fax"]),
-                            HomePage = Convert.ToString(dbReader["HomePage"]),
                             Phone = Convert.ToString(dbReader["Phone"])
                         });
                     }
@@ -134,9 +122,9 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierID"></param>
+        /// <param name="shipperID"></param>
         /// <returns></returns>
-        public bool Update(Supplier supplierID)
+        public bool Update(Shipper shipperID)
         {
             throw new NotImplementedException();
         }

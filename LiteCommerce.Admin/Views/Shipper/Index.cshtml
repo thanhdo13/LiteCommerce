@@ -1,23 +1,35 @@
-﻿
+﻿@model LiteCommerce.Admin.Models.ShipperPaginationResult
 @{
     ViewBag.Title = "Shippers";
+    int i = (Model.Page - 1) * Model.PageSize;
 }
 <div class="box box-primary">
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Input search value...">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-flat">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/Shipper" method="get">
+            <div class="input-group input-group-sm">
+                <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
 <div class="container-fluid row" style="margin-bottom:10px;">
-    <div class="col-sm-8">
-        There are <b>1,000</b> Shippers. Page 1/100
-    </div>
+    @if (Model.PageCount != 0)
+    {
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Shippers. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount)
+        </div>
+    }
+    else
+    {
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Shippers. Page 0/0.
+        </div>
+    }
     <div class="col-md-4 text-right">
         <div class="btn-group">
             <a href="~/Shipper/Input" class="btn btn-sm btn-primary">Add Shipper</a>
@@ -34,20 +46,24 @@
                         <input type="checkbox" />
                     </th>
                     <th style="width:50px">#</th>
+                    <th style="width:200px">ConpanyName</th>
                     <th style="width:200px">Contact Info</th>
                     <th style="width:80px"></th>
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 1; i <= 3; i++)
+                @foreach (var shipper in Model.Data)
                 {
                     <tr>
                         <td>
                             <input type="checkbox" />
                         </td>
-                        <td>@i</td>
+                        <td>@(++i)</td>
                         <td>
-                            <span style="display:block"><i class="fa fa-phone"></i> (100) 555-4822</span>
+                            <span style="display:block"> @shipper.CompanyName</span>
+                        </td>
+                        <td>
+                            <span style="display:block"><i class="fa fa-phone"></i> @shipper.Phone</span>
                         </td>
                         <td class="text-right">
                             <a class="btn btn-sm btn-default" href="~/Shipper/Input/@i/">
@@ -61,11 +77,71 @@
     </div>
     <div class="box-footer clearfix text-center">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
+            <li><a href="~/Shipper?page=1&searchValue=@Model.SearchValue">«</a></li>
+            @if (Model.Page > 3 && Model.Page < Model.PageCount - 3)
+            {
+                if (Model.Page - 3 > 1)
+                {
+                    <li><a>...</a></li>
+                }
+                for (int page = Model.Page - 3; page <= Model.Page + 3; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Shipper?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+                if (Model.PageCount > 4)
+                {
+                    <li><a>...</a></li>
+                }
+            }
+            else if (Model.Page <= 3)
+            {
+                var testpage = Model.PageCount;
+                if (Model.PageCount > 4)
+                {
+                    testpage = Model.Page + 2;
+                }
+                for (int page = 1; page <= testpage; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Shipper?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+                if (Model.Page <= Model.PageCount - 3)
+                {
+                    <li><a>...</a></li>
+                }
+            }
+            else
+            {
+                if (Model.PageCount - 3 > 0)
+                {
+                    <li><a>...</a></li>
+                }
+                for (int page = Model.Page - 2; page <= Model.PageCount; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Shipper?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+            }
+            <li><a href="~/Shipper?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
         </ul>
     </div>
 </div>

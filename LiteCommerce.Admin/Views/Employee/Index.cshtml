@@ -1,23 +1,35 @@
-﻿
+﻿@model LiteCommerce.Admin.Models.EmployeePaginationResult
 @{
     ViewBag.Title = "Employees";
+    int i = (Model.Page - 1) * Model.PageSize;
 }
 <div class="box box-primary">
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Input search value...">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-flat">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/Employee" method="get">
+            <div class="input-group input-group-sm">
+                <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
 <div class="container-fluid row" style="margin-bottom:10px;">
-    <div class="col-sm-8">
-        There are <b>1,000</b> Employees. Page 1/100
-    </div>
+    @if (Model.PageCount != 0)
+    {
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Employees. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount)
+        </div>
+    }
+    else
+    {
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Employees. Page 0/0.
+        </div>
+    }
     <div class="col-md-4 text-right">
         <div class="btn-group">
             <a href="~/Employee/Input" class="btn btn-sm btn-primary">Add Employee</a>
@@ -43,42 +55,48 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 1; i <= 3; i++)
-                {
+               @foreach (var employee in Model.Data)
+               {
                     <tr>
                         <td>
                             <input type="checkbox" />
                         </td>
-                        <td>@i</td>
+                        <td>@(++i)</td>
                         <td>
                                 <div class="pull-left image">
-                                    <img src="~/Themes/AdminLTE/dist/img/user2-160x160.jpg" height="60px" width="60px" class="img-circle" alt="User Image">
+                                    <img src="~/Themes/AdminLTE/dist/img/@employee.PhotoPath" height="60px" width="60px" class="img-circle" alt="User Image">
                                 </div>
                             <span style="color:#0094ff; font-weight:bold; display:block">
-                                Trương
+                                @employee.LastName
                             </span>
                             <span style="color:#0094ff;display:block">
-                                Đô
+                                @employee.FirstName
                             </span>
                             <span style="color:#646464;font-weight:bold">
-                                Sales Representative
+                                @employee.Title
                             </span>
                         </td>
                         <td>
-                            <span style="display:block">BirthDay: 05/12/1998</span>
-                            <span>HireDate: 06/06/2020</span>
+                            <span style="display:block">BirthDay: @employee.BirthDate</span>
+                            <span>HireDate: @employee.HireDate</span>
                         </td>
                         <td>
-                            <span style="display:block">P.O. Box 78934</span>
-                            <span>New Orleans - USA</span>
+                            <span style="display:block">@employee.Address</span>
+                            <span style="display:block">@employee.City </span>
+                            <span>@employee.Country </span>
                         </td>
                         <td>
-                            <span style="display:block"><i class="fa fa-phone"></i> (100) 555-4822</span>
-                            <span style="display:block"><i class="fa fa-fax"></i> (100) 333-665411</span>
-                            <span style="display:block"><i class="fa fa-home"></i> https://neworleans.com</span>
+                            <span style="display:block"><i class="fa fa-phone"></i> @employee.HomePhone</span>              
                         </td>
                         <td>
-                            <span style="display:block">Pro player</span>
+                            @if ((employee.Notes).Length < 30) {
+                            <span style="display:block">@employee.Notes</span>
+                            }
+                            else
+                            {
+                                string str = employee.Notes.Substring(0, 30)+"...";
+                                <span style="display:block">@str</span>
+                            }
                         </td>
                         <td class="text-right">
                             <a class="btn btn-sm btn-default" href="~/Employee/Input/@i/">
@@ -92,11 +110,71 @@
     </div>
     <div class="box-footer clearfix text-center">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
+            <li><a href="~/Employee?page=1&searchValue=@Model.SearchValue">«</a></li>
+            @if (Model.Page > 3 && Model.Page < Model.PageCount - 3)
+            {
+                if (Model.Page - 3 > 1)
+                {
+                    <li><a>...</a></li>
+                }
+                for (int page = Model.Page - 3; page <= Model.Page + 3; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+                if (Model.Page + 3 < Model.PageCount)
+                {
+                    <li><a>...</a></li>
+                }
+            }
+            else if (Model.Page <= 3)
+            {
+                var testpage = Model.PageCount;
+                if (Model.PageCount > 4)
+                {
+                    testpage = Model.Page + 2;
+                }
+                for (int page = 1; page <= testpage; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+                if (Model.PageCount > 4)
+                {
+                    <li><a>...</a></li>
+                }
+            }
+            else
+            {
+                if (Model.PageCount - 3 > 0)
+                {
+                    <li><a>...</a></li>
+                }
+                for (int page = Model.Page - 2; page <= Model.PageCount; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+            }
+            <li><a href="~/Employee?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
         </ul>
     </div>
 </div>

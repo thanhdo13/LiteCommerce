@@ -163,6 +163,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoryPaginationResult.cs" />
+    <Compile Include="Models\CustomerPaginationResult.cs" />
+    <Compile Include="Models\EmployeePaginationResult.cs" />
+    <Compile Include="Models\PaginationResult.cs" />
+    <Compile Include="Models\ShipperPaginationResult.cs" />
+    <Compile Include="Models\SupplierPaginationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -6462,7 +6468,9 @@
     <Content Include="Themes\AdminLTE\dist\img\avatar2.png" />
     <Content Include="Themes\AdminLTE\dist\img\avatar3.png" />
     <Content Include="Themes\AdminLTE\dist\img\avatar5.png" />
+    <Content Include="Themes\AdminLTE\dist\img\BuchananSteven.png" />
     <Content Include="Themes\AdminLTE\dist\img\credit\american-express.png" />
+    <Content Include="Themes\AdminLTE\dist\img\credit\avatar.jpg" />
     <Content Include="Themes\AdminLTE\dist\img\credit\cirrus.png" />
     <Content Include="Themes\AdminLTE\dist\img\credit\mastercard.png" />
     <Content Include="Themes\AdminLTE\dist\img\credit\mestro.png" />
@@ -7155,7 +7163,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LiteCommerce.DomainModels;
+using System.Data.SqlClient;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
-    public class SupplierDAL : ISupplierDAL
+    public class CustomerDAL : ICustomerDAL
     {
         private string connectionString;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="connectionString"></param>
-        public SupplierDAL(string connectionString)
+        public CustomerDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
@@ -26,7 +26,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public int Add(Supplier data)
+        public int Add(Customer data)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +44,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"select COUNT(*) from Suppliers
+                cmd.CommandText = @"select COUNT(*) from Customers
                                     where @searchValue = N'' or CompanyName like @searchValue";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
@@ -52,23 +52,23 @@ namespace LiteCommerce.DataLayers.SqlServer
                 count = Convert.ToInt32(cmd.ExecuteScalar());
                 connection.Close();
             }
-                return count;
+            return count;
         }
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierIDs"></param>
+        /// <param name="customerIDs"></param>
         /// <returns></returns>
-        public int Delete(int[] supplierIDs)
+        public int Delete(int[] customerIDs)
         {
             throw new NotImplementedException();
         }
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierID"></param>
+        /// <param name="customerID"></param>
         /// <returns></returns>
-        public Supplier Get(int supplierID)
+        public Customer Get(int customerID)
         {
             throw new NotImplementedException();
         }
@@ -79,29 +79,28 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public List<Supplier> List(int page, int pageSize, string searchValue)
+        public List<Customer> List(int page, int pageSize, string searchValue)
         {
-           List<Supplier> data = new List<Supplier>();
+            List<Customer> data = new List<Customer>();
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
             // taoj ket noi
-           using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 // Tạo lệnh thực thi truy vấn dữ liệu
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"select * 
-                                    from
-                                    (
+                 cmd.CommandText = @"select * 
+                                        from
+                                        (
 
-                                        select ROW_NUMBER() over(order by CompanyName) as RowNumber,
-                                            Suppliers.*
-                                        from Suppliers
+	                                        select ROW_NUMBER() over (order by CompanyName) as RowNumber,
+		                                        Customers.*
+	                                        from Customers
+	                                        where (@searchValue = N'') or (CompanyName like @searchValue)
 
-                                        where (@searchValue = N'') or(CompanyName like @searchValue)
-
-                                    ) as t
-                                    where t.RowNumber between (@page - 1) * @pageSize + 1 and @page * @pageSize";
+                                        ) as t
+                                        where t.RowNumber between (@page-1)* @pageSize +1 and @page*@pageSize";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@page", page);
@@ -112,9 +111,9 @@ namespace LiteCommerce.DataLayers.SqlServer
                 {
                     while (dbReader.Read())
                     {
-                        data.Add(new Supplier()
+                        data.Add(new Customer()
                         {
-                            SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
+                            CustomerID = Convert.ToString(dbReader["CustomerID"]),
                             CompanyName = Convert.ToString(dbReader["CompanyName"]),
                             ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
                             Address = Convert.ToString(dbReader["Address"]),
@@ -122,7 +121,6 @@ namespace LiteCommerce.DataLayers.SqlServer
                             ContactName = Convert.ToString(dbReader["ContactName"]),
                             Country = Convert.ToString(dbReader["Country"]),
                             Fax = Convert.ToString(dbReader["Fax"]),
-                            HomePage = Convert.ToString(dbReader["HomePage"]),
                             Phone = Convert.ToString(dbReader["Phone"])
                         });
                     }
@@ -134,9 +132,9 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierID"></param>
+        /// <param name="customerID"></param>
         /// <returns></returns>
-        public bool Update(Supplier supplierID)
+        public bool Update(Customer customerID)
         {
             throw new NotImplementedException();
         }
