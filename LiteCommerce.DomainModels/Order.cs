@@ -9,11 +9,11 @@ namespace LiteCommerce.DomainModels
     public class Order
     {
         public int OrderID { get; set; }
-        public string CustiomerID { get; set; }
+        public string CustomerID { get; set; }
         public int EmployeeID { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime RequiredDate { get; set; }
-        public DateTime ShippedDate { get; set; }
+        public string ShippedDate { get; set; }
         public int ShipperID { get; set; }
         public long Freight { get; set; }
         public string ShipAddress { get; set; }

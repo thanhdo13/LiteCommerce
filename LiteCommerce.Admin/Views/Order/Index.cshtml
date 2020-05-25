@@ -1,23 +1,35 @@
-﻿
+﻿@model LiteCommerce.Admin.Models.OrderPaginationResult
 @{
     ViewBag.Title = "List";
+    int i = (Model.Page - 1) * Model.PageSize;
 }
 <div class="box box-primary">
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Input search value...">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-flat">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/Order" method="get">
+            <div class="input-group input-group-sm">
+                <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
 <div class="container-fluid row" style="margin-bottom:10px;">
-    <div class="col-sm-8">
-        There are <b>1,000</b> Orders. Page 1/100
-    </div>
+    @if (Model.PageCount != 0)
+    {
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Orders. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount)
+        </div>
+    }
+    else
+    {
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Orders. Page 0/0.
+        </div>
+    }
     <div class="col-md-4 text-right">
         <div class="btn-group">
             <a href="~/Order/Create" class="btn btn-sm btn-primary">Add Order</a>
@@ -43,13 +55,13 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 1; i <= 3; i++)
+                @foreach (var order in Model.Data)
                 {
                     <tr>
                         <td>
                             <input type="checkbox" />
                         </td>
-                        <td>@i</td>
+                        <td>@(++i)</td>
                         <td>         
                             <span >
                                 VINET
@@ -59,13 +71,13 @@
                             <span >Buchanan	Steven</span>                            
                         </td>
                         <td>
-                            <span >2018-07-04</span>
+                            <span >@order.OrderDate</span>
                         </td>
                         <td>
                             <span>Federal Shipping</span>
                         </td>
                         <td>
-                            <span >32.3800</span>
+                            <span >@order.Freight</span>
                         </td>
                         <td class="text-right">
                             <a class="btn btn-sm btn-default" href="~/Order/Create/@i/">
@@ -79,11 +91,71 @@
     </div>
     <div class="box-footer clearfix text-center">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
+            <li><a href="~/Order?page=1&searchValue=@Model.SearchValue">«</a></li>
+            @if (Model.Page > 3 && Model.Page < Model.PageCount - 3)
+            {
+                if (Model.Page - 3 > 1)
+                {
+                    <li><a>...</a></li>
+                }
+                for (int page = Model.Page - 3; page <= Model.Page + 3; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Order?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+                if (Model.Page + 3 < Model.PageCount)
+                {
+                    <li><a>...</a></li>
+                }
+            }
+            else if (Model.Page <= 3)
+            {
+                var testpage = Model.PageCount;
+                if (Model.PageCount > 4)
+                {
+                    testpage = Model.Page + 2;
+                }
+                for (int page = 1; page <= testpage; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Order?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+                if (Model.Page <= Model.PageCount - 3)
+                {
+                    <li><a>...</a></li>
+                }
+            }
+            else
+            {
+                if (Model.PageCount - 3 > 0)
+                {
+                    <li><a>...</a></li>
+                }
+                for (int page = Model.Page - 2; page <= Model.PageCount; page++)
+                {
+                    if (page == Model.Page)
+                    {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Order?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+            }
+            <li><a href="~/Order?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
         </ul>
     </div>
 </div>

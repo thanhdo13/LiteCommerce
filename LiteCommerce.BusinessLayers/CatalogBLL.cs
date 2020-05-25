@@ -25,6 +25,7 @@ namespace LiteCommerce.BusinessLayers
             ShipperDB = new DataLayers.SqlServer.ShipperDAL(connectionString);
             CategoryDB = new DataLayers.SqlServer.CategoryDAL(connectionString);
             EmployeeDB = new DataLayers.SqlServer.EmployeeDAL(connectionString);
+            OrderDB = new DataLayers.SqlServer.OrderDAL(connectionString);
         }
         #region Khai báo các thuộc tính giao tiếp với DAL
         private static  ISupplierDAL SupplierDB { get; set; }
@@ -32,6 +33,7 @@ namespace LiteCommerce.BusinessLayers
         private static IShipperDAL ShipperDB { get; set; }
         private static ICategoryDAL CategoryDB { get; set; }
         private static IEmployeeDAL EmployeeDB { get; set; }
+        private static IOrderDAL OrderDB { get; set; }
         #endregion
         #region Khai báo các chức năng xử ký nghiệp vụ
         /// <summary>
@@ -87,6 +89,15 @@ namespace LiteCommerce.BusinessLayers
                 pageSize = 20;
             rowCount = EmployeeDB.Count(searchValue);
             return EmployeeDB.List(page, pageSize, searchValue);
+        }
+        public static List<Order> ListOfOrder(int page, int pageSize, string searchValue, out int rowCount)
+        {
+            if (page < 1)
+                page = 1;
+            if (pageSize < 0)
+                pageSize = 20;
+            rowCount = OrderDB.Count(searchValue);
+            return OrderDB.List(page, pageSize, searchValue);
         }
     }
 }

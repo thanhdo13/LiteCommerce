@@ -166,6 +166,7 @@
     <Compile Include="Models\CategoryPaginationResult.cs" />
     <Compile Include="Models\CustomerPaginationResult.cs" />
     <Compile Include="Models\EmployeePaginationResult.cs" />
+    <Compile Include="Models\OrderPaginationResult.cs" />
     <Compile Include="Models\PaginationResult.cs" />
     <Compile Include="Models\ShipperPaginationResult.cs" />
     <Compile Include="Models\SupplierPaginationResult.cs" />
