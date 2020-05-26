@@ -94,8 +94,12 @@ namespace LiteCommerce.DataLayers.SqlServer
                 (
 
 	                select ROW_NUMBER() over (order by ShipAddress) as RowNumber,
-		                Orders.*
-	                from Orders
+		                Orders.OrderID,Customers.CompanyName as b,(Employees.FirstName + ' '+ Employees.LastName) as d,OrderDate,RequiredDate,ShippedDate,Shippers.CompanyName as c,Freight,ShipAddress,ShipCity,ShipCountry
+	                from Orders 
+					inner join Customers on Orders.CustomerID = Customers.CustomerID
+					inner join Employees on Orders.EmployeeID = Employees.EmployeeID
+					inner join Shippers on Orders.ShipperID = Shippers.ShipperID
+					 
 	                where (@searchValue = N'') or (ShipAddress like @searchValue) or (ShipCity like @searchValue) or (ShipCountry like @searchValue)
 
                 ) as t
@@ -113,12 +117,12 @@ namespace LiteCommerce.DataLayers.SqlServer
                         data.Add(new Order()
                         {
                             OrderID = Convert.ToInt32(dbReader["OrderID"]),
-                            CustomerID = Convert.ToString(dbReader["CustomerID"]),
-                            EmployeeID = Convert.ToInt32(dbReader["EmployeeID"]),
+                            Customer = Convert.ToString(dbReader["b"]),
+                            Employee = Convert.ToString(dbReader["d"]),
                             OrderDate = Convert.ToDateTime(dbReader["OrderDate"]),
                             RequiredDate = Convert.ToDateTime(dbReader["RequiredDate"]),
                             ShippedDate = Convert.ToString(dbReader["ShippedDate"]),
-                            ShipperID = Convert.ToInt32(dbReader["ShipperID"]),
+                            Shipper = Convert.ToString(dbReader["c"]),
                             Freight = Convert.ToInt64(dbReader["Freight"]),
                             ShipAddress = Convert.ToString(dbReader["ShipAddress"]),
                             ShipCity = Convert.ToString(dbReader["ShipCity"]),
