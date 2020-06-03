@@ -28,14 +28,14 @@ namespace LiteCommerce.DataLayers
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        Customer Get(int customerID);
+        Customer Get(string customerID);
         /// <summary>
         /// Bổ sung 1 Customer , hàn trả về id của supplier được bổ sungg.
         /// Nếu lỗi trả về giá trị nhỏ hơn hoặc bằng 0.
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        int Add(Customer data);
+        string Add(Customer data);
         /// <summary>
         /// 
         /// </summary>
@@ -47,6 +47,6 @@ namespace LiteCommerce.DataLayers
         /// </summary>
         /// <param name="customerIDs"></param>
         /// <returns></returns>
-        int Delete(int[] customerIDs);
+        int Delete(string[] customerIDs);
     }
 }

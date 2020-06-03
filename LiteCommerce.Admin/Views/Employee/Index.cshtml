@@ -17,164 +17,167 @@
         </form>
     </div>
 </div>
-<div class="container-fluid row" style="margin-bottom:10px;">
-    @if (Model.PageCount != 0)
-    {
-        <div class="col-sm-8">
-            There are <b>@Model.RowCount</b> Employees. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount)
-        </div>
-    }
-    else
-    {
-        <div class="col-sm-8">
-            There are <b>@Model.RowCount</b> Employees. Page 0/0.
-        </div>
-    }
-    <div class="col-md-4 text-right">
-        <div class="btn-group">
-            <a href="~/Employee/Input" class="btn btn-sm btn-primary">Add Employee</a>
-            <button type="button" class="btn btn-sm btn-danger">Delete Employees</button>
+<form action="~/Employee/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px;">
+        @if (Model.PageCount != 0)
+        {
+            <div class="col-sm-8">
+                There are <b>@Model.RowCount</b> Employees. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount)
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-8">
+                There are <b>@Model.RowCount</b> Employees. Page 0/0.
+            </div>
+        }
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a href="~/Employee/Input" class="btn btn-sm btn-primary">Add Employee</a>
+                <button type="submit" class="btn btn-sm btn-danger">Delete Employees</button>
+            </div>
         </div>
     </div>
-</div>
-<div class="box box-success mailbox-messages">
-    <div class="box-body">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th style="width:30px">
-                        <input type="checkbox" />
-                    </th>
-                    <th style="width:50px">#</th>
-                    <th style="width:auto">Name</th>
-                    <th style="width:200px">Date</th>
-                    <th style="width:200px">Address</th>
-                    <th style="width:200px">Contact Info</th>
-                    <th style="width:200px">Note</th>
-                    <th style="width:80px"></th>
-                </tr>
-            </thead>
-            <tbody>
-               @foreach (var employee in Model.Data)
-               {
+    <div class="box box-success mailbox-messages">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td>
-                            <input type="checkbox" />
-                        </td>
-                        <td>@(++i)</td>
-                        <td>
+                        <th style="width:30px">
+                            <input id="selectAll" type="checkbox" />
+                        </th>
+                        <th style="width:50px">#</th>
+                        <th style="width:auto">Name</th>
+                        <th style="width:200px">Date</th>
+                        <th style="width:200px">Address</th>
+                        <th style="width:200px">Contact Info</th>
+                        <th style="width:200px">Note</th>
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model.Data)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="employeeIDs" value="@employee.EmployeeID"/>
+                            </td>
+                            <td>@(++i)</td>
+                            <td>
                                 <div class="pull-left image">
                                     <img src="~/Themes/AdminLTE/dist/img/@employee.PhotoPath" height="60px" width="60px" class="img-circle" alt="User Image">
                                 </div>
-                            <span style="color:#0094ff; font-weight:bold; display:block">
-                                @employee.LastName
-                            </span>
-                            <span style="color:#0094ff;display:block">
-                                @employee.FirstName
-                            </span>
-                            <span style="color:#646464;font-weight:bold">
-                                @employee.Title
-                            </span>
-                        </td>
-                        <td>
-                            <span style="display:block">BirthDay: @employee.BirthDate</span>
-                            <span>HireDate: @employee.HireDate</span>
-                        </td>
-                        <td>
-                            <span style="display:block">@employee.Address</span>
-                            <span style="display:block">@employee.City </span>
-                            <span>@employee.Country </span>
-                        </td>
-                        <td>
-                            <span style="display:block"><i class="fa fa-phone"></i> @employee.HomePhone</span>              
-                        </td>
-                        <td>
-                            @if ((employee.Notes).Length < 30) {
-                            <span style="display:block">@employee.Notes</span>
-                            }
-                            else
-                            {
-                                string str = employee.Notes.Substring(0, 30)+"...";
-                                <span style="display:block">@str</span>
-                            }
-                        </td>
-                        <td class="text-right">
-                            <a class="btn btn-sm btn-default" href="~/Employee/Input/@i/">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="box-footer clearfix text-center">
-        <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="~/Employee?page=1&searchValue=@Model.SearchValue">«</a></li>
-            @if (Model.Page > 3 && Model.Page < Model.PageCount - 3)
+                                <span style="color:#0094ff; font-weight:bold; display:block">
+                                    @employee.LastName
+                                </span>
+                                <span style="color:#0094ff;display:block">
+                                    @employee.FirstName
+                                </span>
+                                <span style="color:#646464;font-weight:bold">
+                                    @employee.Title
+                                </span>
+                            </td>
+                            <td>
+                                <span style="display:block">BirthDay: @employee.BirthDate</span>
+                                <span>HireDate: @employee.HireDate</span>
+                            </td>
+                            <td>
+                                <span style="display:block">@employee.Address</span>
+                                <span style="display:block">@employee.City </span>
+                                <span>@employee.Country </span>
+                            </td>
+                            <td>
+                                <span style="display:block"><i class="fa fa-phone"></i> @employee.HomePhone</span>
+                            </td>
+                            <td>
+                                @if ((employee.Notes).Length < 30)
+                                {
+                                    <span style="display:block">@employee.Notes</span>
+                                }
+                                else
+                                {
+                                    string str = employee.Notes.Substring(0, 30) + "...";
+                                    <span style="display:block">@str</span>
+                                }
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-default" href="~/Employee/Input/@employee.EmployeeID/">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix text-center">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="~/Employee?page=1&searchValue=@Model.SearchValue">«</a></li>
+                @if (Model.Page > 3 && Model.Page < Model.PageCount - 3)
             {
                 if (Model.Page - 3 > 1)
                 {
-                    <li><a>...</a></li>
-                }
-                for (int page = Model.Page - 3; page <= Model.Page + 3; page++)
-                {
-                    if (page == Model.Page)
-                    {
-                        <li class="active"><a href="#">@page</a></li>
+                        <li><a>...</a></li>
                     }
-                    else
+                    for (int page = Model.Page - 3; page <= Model.Page + 3; page++)
                     {
-                        <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        if (page == Model.Page)
+                        {
+                            <li class="active"><a href="#">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        }
                     }
-                }
-                if (Model.Page + 3 < Model.PageCount)
-                {
-                    <li><a>...</a></li>
-                }
-            }
-            else if (Model.Page <= 3)
-            {
-                var testpage = Model.PageCount;
-                if (Model.PageCount > 4)
-                {
-                    testpage = Model.Page + 2;
-                }
-                for (int page = 1; page <= testpage; page++)
-                {
-                    if (page == Model.Page)
+                    if (Model.Page + 3 < Model.PageCount)
                     {
-                        <li class="active"><a href="#">@page</a></li>
-                    }
-                    else
-                    {
-                        <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        <li><a>...</a></li>
                     }
                 }
-                if (Model.PageCount > 4)
+                else if (Model.Page <= 3)
                 {
-                    <li><a>...</a></li>
-                }
-            }
-            else
-            {
-                if (Model.PageCount - 3 > 0)
-                {
-                    <li><a>...</a></li>
-                }
-                for (int page = Model.Page - 2; page <= Model.PageCount; page++)
-                {
-                    if (page == Model.Page)
+                    var testpage = Model.PageCount;
+                    if (Model.PageCount > 4)
                     {
-                        <li class="active"><a href="#">@page</a></li>
+                        testpage = Model.Page + 2;
                     }
-                    else
+                    for (int page = 1; page <= testpage; page++)
                     {
-                        <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        if (page == Model.Page)
+                        {
+                            <li class="active"><a href="#">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        }
+                    }
+                    if (Model.PageCount > 4)
+                    {
+                        <li><a>...</a></li>
                     }
                 }
-            }
-            <li><a href="~/Employee?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
-        </ul>
+                else
+                {
+                    if (Model.PageCount - 3 > 0)
+                    {
+                        <li><a>...</a></li>
+                    }
+                    for (int page = Model.Page - 2; page <= Model.PageCount; page++)
+                    {
+                        if (page == Model.Page)
+                        {
+                            <li class="active"><a href="#">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        }
+                    }
+                }
+                <li><a href="~/Employee?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
+            </ul>
+        </div>
     </div>
-</div>
+    </form>

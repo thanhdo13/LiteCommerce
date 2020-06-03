@@ -38,17 +38,90 @@ namespace LiteCommerce.Admin.Controllers
             //  viewbag.rowcount = rowcount;
             return View(model);
         }
+        [HttpGet]
         public ActionResult Input(string id = "")
         {
-            if (string.IsNullOrEmpty(id))
+            try
             {
-                ViewBag.Title = " Create new Customer";
-            }
-            else
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewBag.Title = " Create new Customer";
+                    Customer newCustomer = new Customer()
+                    {
+                        CustomerID = ""
+                    };
+                    return View(newCustomer);
+                }
+                else
+                {
+                    ViewBag.Title = "Edit a Customer";
+                    Customer editCustomer = CataLogBLL.GetCustomer(id);
+                    return View(editCustomer);
+                }  
+            }catch(Exception ex)
             {
-                ViewBag.Title = "Edit a Customer";
+                return Content(ex.Message + "" + ex.StackTrace);
             }
-            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Input(Customer model)
+        {
+            try
+            {
+                //TODO: kiem tra tinh hop le cua du lieu 
+                if (string.IsNullOrEmpty(model.CustomerID))
+                    ModelState.AddModelError("CustomerID", "CustomerID expected");
+                if (string.IsNullOrEmpty(model.CompanyName))
+                    ModelState.AddModelError("CompanyName", "CompanyName expected");
+                if (string.IsNullOrEmpty(model.ContactName))
+                    ModelState.AddModelError("ContactName", "ContactName expected");
+                if (string.IsNullOrEmpty(model.ContactTitle))
+                    ModelState.AddModelError("ContactTitle", "ContactTitle expected");
+                if (string.IsNullOrEmpty(model.Address))
+                    model.Address = "";
+                if (string.IsNullOrEmpty(model.City))
+                    model.City = "";
+                if (string.IsNullOrEmpty(model.Country))
+                    model.Country = "";
+                if (string.IsNullOrEmpty(model.Fax))
+                    model.Fax = "";
+                if (string.IsNullOrEmpty(model.Phone))
+                    model.Phone = "";
+                // if (!ModelState.IsValid)
+                // {
+                // ViewBag.Title = method == null ? "Create new Customer" : "Edit a Customer";
+                // return View(model);
+                // }
+                //TODO: Luu
+                Customer getCustomer = CataLogBLL.GetCustomer(model.CustomerID);
+                if (getCustomer == null)
+                {
+                   // model.CustomerID = method;
+                    CataLogBLL.AddCustomer(model);
+                }
+                else
+                {
+                    CataLogBLL.UpdateCustomer(model);
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message + "" + ex.StackTrace);
+                //ModelState.AddModelError("Loi", ex.StackTrace);
+                //return View(model);
+            }
+
+        }
+        [HttpPost]
+        public ActionResult Delete(string[] customerIDs = null)
+        {
+            if (customerIDs != null)
+            {
+                CataLogBLL.DeleteCustomers(customerIDs);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

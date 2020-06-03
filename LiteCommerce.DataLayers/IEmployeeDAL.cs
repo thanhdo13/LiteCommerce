@@ -28,7 +28,7 @@ namespace LiteCommerce.DataLayers
         /// </summary>
         /// <param name="employeeID"></param>
         /// <returns></returns>
-        Supplier Get(int employeeID);
+        Employee Get(int employeeID);
         /// <summary>
         /// Bổ sung 1 supplier , hàn trả về id của supplier được bổ sungg.
         /// Nếu lỗi trả về giá trị nhỏ hơn hoặc bằng 0.

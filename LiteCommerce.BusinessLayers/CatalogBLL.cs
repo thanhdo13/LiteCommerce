@@ -37,7 +37,7 @@ namespace LiteCommerce.BusinessLayers
         #endregion
         #region Khai báo các chức năng xử ký nghiệp vụ
         /// <summary>
-        /// 
+        /// Lay ra danh sach supplier co phan trang so trang va dem so dong
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -53,7 +53,15 @@ namespace LiteCommerce.BusinessLayers
             rowCount = SupplierDB.Count(searchValue);
             return SupplierDB.List(page,pageSize,searchValue);
         }
-        #endregion
+        /// <summary>
+        /// Lay ra danh sach Customer co phan trang so trang va dem so dong
+        /// </summary>
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <param name="rowCount"></param>
+        /// <returns></returns>
         public static List<Customer> ListOfCustomer(int page, int pageSize, string searchValue, out int rowCount)
         {
             if (page < 1)
@@ -62,6 +70,106 @@ namespace LiteCommerce.BusinessLayers
                 pageSize = 20;
             rowCount = CustomerDB.Count(searchValue);
             return CustomerDB.List(page,pageSize,searchValue);
+        }
+        /// <summary>
+        /// Lay thong tin cua supplier thong qua supplierID
+        /// </summary>
+        /// <param name="supplierID"></param>
+        /// <returns></returns>
+        public static Supplier GetSupplier(int supplierID)
+        {
+            return SupplierDB.Get(supplierID);
+        }
+        public static Customer GetCustomer(string customerID)
+        {
+            return CustomerDB.Get(customerID);
+        }
+        public static Category GetCategory(int categoryID)
+        {
+            return CategoryDB.Get(categoryID);
+        }
+        public static Shipper GetShipper(int shipperID)
+        {
+            return ShipperDB.Get(shipperID);
+        }
+        public static Employee GetEmployee(int employeeID)
+        {
+            return EmployeeDB.Get(employeeID);
+        }
+        /// <summary>
+        /// them 1 supplier
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static int AddSupplier(Supplier data)
+        {
+            return SupplierDB.Add(data);
+        }
+        public static string AddCustomer(Customer data)
+        {
+            return CustomerDB.Add(data);
+        }
+        public static int AddCategory(Category data)
+        {
+            return CategoryDB.Add(data);
+        }
+        public static int AddShipper(Shipper data)
+        {
+            return ShipperDB.Add(data);
+        }
+        public static int AddEmployee(Employee data)
+        {
+            return EmployeeDB.Add(data);
+        }
+        /// <summary>
+        ///  update 1 supplier
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static bool UpdateSupplier(Supplier data)
+        {
+            return SupplierDB.Update(data);
+        }
+        public static bool UpdateCustomer(Customer data)
+        {
+            return CustomerDB.Update(data);
+        }
+        public static bool UpdateCategory(Category data)
+        {
+            return CategoryDB.Update(data);
+        }
+        public static bool UpdateShipper(Shipper data)
+        {
+            return ShipperDB.Update(data);
+        }
+        public static bool UpdateEmployee(Employee data)
+        {
+            return EmployeeDB.Update(data);
+        }
+        /// <summary>
+        ///  Xoa nhieu supplier
+        /// </summary>
+        /// <param name="supplierIDs"></param>
+        /// <returns></returns>
+        public static int DeleteSuppliers(int[] supplierIDs)
+        {
+            return SupplierDB.Delete(supplierIDs);
+        }
+        public static int DeleteCustomers(string[] customerIDs)
+        {
+            return CustomerDB.Delete(customerIDs);
+        }
+        public static int DeleteCategories(int[] categoryIDs)
+        {
+            return CategoryDB.Delete(categoryIDs);
+        }
+        public static int DeleteShippers(int[] shipperIDs)
+        {
+            return ShipperDB.Delete(shipperIDs);
+        }
+        public static int DeleteEmployee(int[] employeeIDs)
+        {
+            return EmployeeDB.Delete(employeeIDs);
         }
         public static List<Shipper> ListOfShipper(int page, int pageSize, string searchValue, out int rowCount)
         {
@@ -99,5 +207,6 @@ namespace LiteCommerce.BusinessLayers
             rowCount = OrderDB.Count(searchValue);
             return OrderDB.List(page, pageSize, searchValue);
         }
+        #endregion
     }
 }

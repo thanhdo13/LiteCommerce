@@ -43,8 +43,13 @@ namespace LiteCommerce.DataLayers.SqlServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"select COUNT(*) from Orders
-                                    where @searchValue = N'' or ShipAddress like @searchValue or ShipCity like @searchValue or ShipCountry like @searchValue";
+                cmd.CommandText = @"select COUNT(*)    	
+	                                from Orders 
+					                inner join Customers on Orders.CustomerID = Customers.CustomerID
+					                inner join Employees on Orders.EmployeeID = Employees.EmployeeID
+					                inner join Shippers on Orders.ShipperID = Shippers.ShipperID
+					
+                                   where (@searchValue = N'') or (Customers.CompanyName like @searchValue) or (Employees.FirstName like @searchValue) or (Employees.LastName like @searchValue) or (Shippers.CompanyName like @searchValue)";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@searchValue", searchValue);
@@ -90,20 +95,20 @@ namespace LiteCommerce.DataLayers.SqlServer
                 // Tạo lệnh thực thi truy vấn dữ liệu
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"select * 
-                from
-                (
+                                    from
+                                    (
 
-	                select ROW_NUMBER() over (order by ShipAddress) as RowNumber,
-		                Orders.OrderID,Customers.CompanyName as b,(Employees.FirstName + ' '+ Employees.LastName) as d,OrderDate,RequiredDate,ShippedDate,Shippers.CompanyName as c,Freight,ShipAddress,ShipCity,ShipCountry
-	                from Orders 
-					inner join Customers on Orders.CustomerID = Customers.CustomerID
-					inner join Employees on Orders.EmployeeID = Employees.EmployeeID
-					inner join Shippers on Orders.ShipperID = Shippers.ShipperID
+	                                    select ROW_NUMBER() over (order by ShipAddress) as RowNumber,
+		                                    Orders.OrderID,Customers.CompanyName as b,(Employees.FirstName + ' '+ Employees.LastName) as d,OrderDate,RequiredDate,ShippedDate,Shippers.CompanyName as c,Freight,ShipAddress,ShipCity,ShipCountry
+	                                    from Orders 
+					                    inner join Customers on Orders.CustomerID = Customers.CustomerID
+					                    inner join Employees on Orders.EmployeeID = Employees.EmployeeID
+					                    inner join Shippers on Orders.ShipperID = Shippers.ShipperID
 					 
-	                where (@searchValue = N'') or (ShipAddress like @searchValue) or (ShipCity like @searchValue) or (ShipCountry like @searchValue)
+	                                    where (@searchValue = N'') or (Customers.CompanyName like @searchValue) or (Employees.FirstName like @searchValue) or (Employees.LastName like @searchValue) or (Shippers.CompanyName like @searchValue)
 
-                ) as t
-                where t.RowNumber between (@page-1)* @pageSize +1 and @page*@pageSize";
+                                    ) as t
+                                where t.RowNumber between (@page-1)* @pageSize +1 and @page*@pageSize";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@page", page);

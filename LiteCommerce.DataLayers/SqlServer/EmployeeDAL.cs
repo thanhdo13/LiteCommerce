@@ -22,7 +22,67 @@ namespace LiteCommerce.DataLayers.SqlServer
         }
         public int Add(Employee data)
         {
-            throw new NotImplementedException();
+            int employeeID = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"INSERT INTO Employees
+                                          (
+	                                          LastName,
+	                                          FirstName,
+	                                          Title,
+	                                          BirthDate,
+	                                          HireDate,
+	                                          Email,
+	                                          Address,
+	                                          City,
+	                                          Country,
+                                              HomePhone,
+                                              Notes,
+                                              PhotoPath,
+                                              Password
+                                          )
+                                          VALUES
+                                          (
+	                                          @LastName,
+	                                          @FirstName,
+	                                          @Title,
+	                                          @BirthDate,
+	                                          @HireDate,
+	                                          @Email,
+	                                          @Address,
+	                                          @City,
+	                                          @Country,
+                                              @HomePhone,
+                                              @Notes,
+                                              @PhotoPath,
+                                              @Password
+                                          );
+                                          SELECT @@IDENTITY;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@LastName", data.LastName);
+                cmd.Parameters.AddWithValue("@FirstName", data.FirstName);
+                cmd.Parameters.AddWithValue("@Title", data.Title);
+                cmd.Parameters.AddWithValue("@Address", data.Address);
+                cmd.Parameters.AddWithValue("@City", data.City);
+                cmd.Parameters.AddWithValue("@Country", data.Country);
+                cmd.Parameters.AddWithValue("@BirthDate", data.BirthDate);
+                cmd.Parameters.AddWithValue("@HireDate", data.HireDate);
+                cmd.Parameters.AddWithValue("@Email", data.Email);
+                cmd.Parameters.AddWithValue("@HomePhone", data.HomePhone);
+                cmd.Parameters.AddWithValue("@Notes", data.Notes);
+                cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);
+                cmd.Parameters.AddWithValue("@Password", data.Password);
+
+                employeeID = Convert.ToInt32(cmd.ExecuteScalar());
+
+                connection.Close();
+            }
+
+            return employeeID;
         }
 
         public int Count(string searchValue)
@@ -47,12 +107,71 @@ namespace LiteCommerce.DataLayers.SqlServer
 
         public int Delete(int[] employeeIDs)
         {
-            throw new NotImplementedException();
+            int countDeleted = 0;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"DELETE FROM Employees
+                                            WHERE(EmployeeID = @EmployeeID)
+                                              AND(EmployeeID NOT IN(SELECT EmployeeID FROM Orders))";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.Add("@EmployeeID", SqlDbType.Int);
+                foreach (int employeeId in employeeIDs)
+                {
+                    cmd.Parameters["@EmployeeID"].Value = employeeId;
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                        countDeleted += 1;
+                }
+
+                connection.Close();
+            }
+            return countDeleted;
         }
 
-        public Supplier Get(int employeeID)
+        public Employee Get(int employeeID)
         {
-            throw new NotImplementedException();
+            Employee data = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"SELECT * FROM Employees WHERE employeeID = @employeeID";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@employeeID", employeeID);
+
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dbReader.Read())
+                    {
+                        data = new Employee()
+                        {
+                            EmployeeID = Convert.ToInt32(dbReader["EmployeeID"]),
+                            FirstName = Convert.ToString(dbReader["FirstName"]),
+                            LastName = Convert.ToString(dbReader["LastName"]),
+                            Address = Convert.ToString(dbReader["Address"]),
+                            City = Convert.ToString(dbReader["City"]),
+                            BirthDate = Convert.ToDateTime(dbReader["BirthDate"]),
+                            HireDate = Convert.ToDateTime(dbReader["HireDate"]),
+                            Country = Convert.ToString(dbReader["Country"]),
+                            Notes = Convert.ToString(dbReader["Notes"]),
+                            HomePhone = Convert.ToString(dbReader["HomePhone"]),
+                            PhotoPath = Convert.ToString(dbReader["PhotoPath"]),
+                            Password = Convert.ToString(dbReader["Password"]),
+                            Email = Convert.ToString(dbReader["Email"]),
+                            Title = Convert.ToString(dbReader["Title"])
+                        };
+                    }
+                }
+
+                connection.Close();
+            }
+            return data;
         }
 
         public List<Employee> List(int page, int pageSize, string searchValue)
@@ -111,9 +230,52 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
 
-        public bool Update(Employee employeeID)
+        public bool Update(Employee data)
         {
-            throw new NotImplementedException();
+            int rowsAffected = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"UPDATE Employees
+                                           SET FirstName = @FirstName 
+                                              ,LastName = @LastName
+                                              ,City = @City
+                                              ,Address = @Address
+                                              ,BirthDate = @BirthDate
+                                              ,HireDate = @HireDate
+                                              ,Country = @Country
+                                              ,Notes = @Notes
+                                              ,HomePhone = @HomePhone
+                                              ,PhotoPath = @PhotoPath
+                                              ,Password = @Password
+                                              ,Email = @Email
+                                              ,Title = @Title
+                                          WHERE EmployeeID = @EmployeeID";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@EmployeeID", data.EmployeeID);
+                cmd.Parameters.AddWithValue("@FirstName", data.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", data.LastName);
+                cmd.Parameters.AddWithValue("@City", data.City);
+                cmd.Parameters.AddWithValue("@Address", data.Address);
+                cmd.Parameters.AddWithValue("@BirthDate", data.BirthDate);
+                cmd.Parameters.AddWithValue("@Country", data.Country);
+                cmd.Parameters.AddWithValue("@HireDate", data.HireDate);
+                cmd.Parameters.AddWithValue("@Notes", data.Notes);
+                cmd.Parameters.AddWithValue("@HomePhone", data.HomePhone);
+                cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);
+                cmd.Parameters.AddWithValue("@Password", data.Password);
+                cmd.Parameters.AddWithValue("@Email", data.Email);
+                cmd.Parameters.AddWithValue("@Title", data.Title);
+
+                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                connection.Close();
+            }
+
+            return rowsAffected > 0;
         }
     }
 }

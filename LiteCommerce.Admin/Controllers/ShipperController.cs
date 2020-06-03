@@ -38,17 +38,75 @@ namespace LiteCommerce.Admin.Controllers
             //  viewbag.rowcount = rowcount;
             return View(model);
         }
+        [HttpGet]
         public ActionResult Input(string id = "")
         {
-            if (string.IsNullOrEmpty(id))
+            try { 
+            
+                if (string.IsNullOrEmpty(id))
             {
                 ViewBag.Title = " Create new Shipper";
-            }
+                    Shipper newShipper = new Shipper()
+                    {
+                        ShipperID = 0
+                    };
+                    return View(newShipper);
+                }
             else
             {
                 ViewBag.Title = "Edit a Shipper";
+                    Shipper editShipper = CataLogBLL.GetShipper(Convert.ToInt32(id));
+                    if (editShipper == null)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    return View(editShipper);
+                }
+            }catch(Exception ex)
+            {
+                return Content(ex.Message + "" + ex.StackTrace);
             }
-            return View();
+        }
+        [HttpPost]
+        public ActionResult Input(Shipper model)
+        {
+            try
+            {
+                //TODO: kiem tra tinh hop le cua du lieu 
+                if (string.IsNullOrEmpty(model.CompanyName))
+                    ModelState.AddModelError("CompanyName", "CompanyName expected");
+                if (string.IsNullOrEmpty(model.Phone))
+                    model.Phone = "";
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.Title = model.ShipperID == 0 ? "Create new Shipper" : "Edit a Shipper";
+                    return View(model);
+                }
+                //TODO: Luu
+                if (model.ShipperID == 0)
+                {
+                    CataLogBLL.AddShipper(model);
+                }
+                else
+                {
+                    CataLogBLL.UpdateShipper(model);
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Loi", ex.StackTrace);
+                return View(model);
+            }
+        }
+        [HttpPost]
+        public ActionResult Delete(int[] shipperIDs = null)
+        {
+            if (shipperIDs != null)
+            {
+                CataLogBLL.DeleteShippers(shipperIDs);
+            }
+            return RedirectToAction("Index");
         }
     }
 }
