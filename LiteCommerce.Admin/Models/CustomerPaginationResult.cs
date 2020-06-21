@@ -9,5 +9,6 @@ namespace LiteCommerce.Admin.Models
     public class CustomerPaginationResult : PaginationResult
     {
         public List<Customer> Data { get; set; }
+        public string Country { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace LiteCommerce.Admin.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [Authorize(Roles = WebUserRoles.DataManagement)]
     public class CustomerController : Controller
     {
         // GET: Customer
@@ -18,19 +19,21 @@ namespace LiteCommerce.Admin.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-          [Authorize]
-        public ActionResult Index(int page = 1, string searchValue = "")
+          
+        public ActionResult Index(int page = 1, string searchValue = "",string country = "")
         {
             int pageSize = 3;
             int rowCount = 0;
-            List<Customer> listOfCustomer = CataLogBLL.ListOfCustomer(page, pageSize, searchValue, out rowCount);
+            List<Customer> listOfCustomer = CataLogBLL.ListOfCustomer(page, pageSize, searchValue,country, out rowCount);
             var model = new Models.CustomerPaginationResult()
             {
                 Page = page,
                 PageSize = pageSize,
                 RowCount = rowCount,
                 Data = listOfCustomer,
-                SearchValue = searchValue
+                SearchValue = searchValue,
+                Country=country
+            
             };
             //  int pagesize = 3;
             // int rowcount = 0;
@@ -88,11 +91,11 @@ namespace LiteCommerce.Admin.Controllers
                     model.Fax = "";
                 if (string.IsNullOrEmpty(model.Phone))
                     model.Phone = "";
-                // if (!ModelState.IsValid)
-                // {
-                // ViewBag.Title = method == null ? "Create new Customer" : "Edit a Customer";
-                // return View(model);
-                // }
+                 if (!ModelState.IsValid)
+                {
+                    ViewBag.Title = model.CustomerID == "" ? "Create new Customer" : "Edit a Customer";
+                    return View(model);
+                 }
                 //TODO: Luu
                 Customer getCustomer = CataLogBLL.GetCustomer(model.CustomerID);
                 if (getCustomer == null)

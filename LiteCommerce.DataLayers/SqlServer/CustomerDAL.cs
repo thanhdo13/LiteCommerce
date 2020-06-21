@@ -83,7 +83,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public int Count(string searchValue)
+        public int Count(string searchValue,string country)
         {
             int count = 0;
             if (!string.IsNullOrEmpty(searchValue))
@@ -93,10 +93,11 @@ namespace LiteCommerce.DataLayers.SqlServer
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"select COUNT(*) from Customers
-                                    where @searchValue = N'' or CompanyName like @searchValue";
+                                    where ((@searchValue = N'') or (CompanyName like @searchValue)) and (Country =@country or @country = N'')";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@searchValue", searchValue);
+                cmd.Parameters.AddWithValue("@country", country);
                 count = Convert.ToInt32(cmd.ExecuteScalar());
                 connection.Close();
             }
@@ -182,7 +183,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public List<Customer> List(int page, int pageSize, string searchValue)
+        public List<Customer> List(int page, int pageSize, string searchValue, string country)
         {
             List<Customer> data = new List<Customer>();
             if (!string.IsNullOrEmpty(searchValue))
@@ -200,7 +201,7 @@ namespace LiteCommerce.DataLayers.SqlServer
 	                                        select ROW_NUMBER() over (order by CompanyName) as RowNumber,
 		                                        Customers.*
 	                                        from Customers
-	                                        where (@searchValue = N'') or (CompanyName like @searchValue)
+	                                        where ((@searchValue = N'') or (CompanyName like @searchValue)) and (Country =@country or @country = N'')
 
                                         ) as t
                                         where t.RowNumber between (@page-1)* @pageSize +1 and @page*@pageSize";
@@ -209,6 +210,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 cmd.Parameters.AddWithValue("@page", page);
                 cmd.Parameters.AddWithValue("@pageSize", pageSize);
                 cmd.Parameters.AddWithValue("@searchValue", searchValue);
+                cmd.Parameters.AddWithValue("@country", country);
                 // thuc hien
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {

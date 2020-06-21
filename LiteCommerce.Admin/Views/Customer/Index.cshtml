@@ -3,18 +3,55 @@
     ViewBag.Title = "Customer";
     int i = (Model.Page-1) * Model.PageSize;
 }
+<style>
+    .form-custom {
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .form-custom > div {
+            width: 49%;
+        }
+
+            .form-custom > div:last-child {
+                width: 50%;
+            }
+
+            .form-custom > div:last-child {
+                position: relative;
+            }
+
+                .form-custom > div:last-child span {
+                    position: absolute;
+                    top: 0;
+                    right: 27px;
+                }
+</style>
 <div class="box box-primary">
     <div class="box-body">
         <form action="~/Customer" method="get">
-            <div class="input-group input-group-sm">
-                <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
-                <span class="input-group-btn">
-                    <button type="submit" class="btn btn-primary btn-flat">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
+            <div class="form-custom">
+                <div>
+                    @Html.DropDownListFor(m => m.Country, SelectListHelper.Countries(), new { @class = "form-control" })
+                    @*<select class="form-control">
+                <option value="">-- Choose Category --</option>
+                <option value="1">Category</option>
+                <option value="2">Supplier</option>
+                <option value="3">tìm kiếm theo giá trị</option>
+                 </select>*@
+                </div>
+                <div class="input-group input-group-sm">
+                    <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-flat">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+
+                </div>
             </div>
-        </form>
+            
+    </form>
 </div>
 </div>
 <form action="~/Customer/Delete" method="post">
@@ -92,7 +129,7 @@
         </div>
         <div class="box-footer clearfix text-center">
             <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="~/Customer?page=1&searchValue=@Model.SearchValue">«</a></li>
+                <li><a href="~/Customer?page=1&Country=@Model.Country&searchValue=@Model.SearchValue">«</a></li>
                 @if (Model.Page > 3 && Model.Page < Model.PageCount - 3)
                 {
                     if (Model.Page - 3 > 1)
@@ -107,7 +144,7 @@
                         }
                         else
                         {
-                            <li><a href="~/Customer?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                            <li><a href="~/Customer?page=@page&Country=@Model.Country&searchValue=@Model.SearchValue">@page</a></li>
                         }
                     }
                     if (Model.Page + 3 < Model.PageCount)
@@ -130,7 +167,7 @@
                         }
                         else
                         {
-                            <li><a href="~/Customer?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                            <li><a href="~/Customer?page=@page&Country=@Model.Country&searchValue=@Model.SearchValue">@page</a></li>
                         }
                     }
                     if (Model.PageCount > 4)
@@ -152,11 +189,11 @@
                         }
                         else
                         {
-                            <li><a href="~/Customer?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                            <li><a href="~/Customer?page=@page&Country=@Model.Country&searchValue=@Model.SearchValue">@page</a></li>
                         }
                     }
                 }
-                <li><a href="~/Customer?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
+                <li><a href="~/Customer?page=@Model.PageCount&Country=@Model.Country&searchValue=@Model.SearchValue">»</a></li>
             </ul>
         </div>
     </div>

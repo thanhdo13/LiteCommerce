@@ -208,7 +208,7 @@ namespace LiteCommerce.DataLayers.SqlServer
 	                                            from	Suppliers
 	                                            where	(@searchValue = N'') or (CompanyName like @searchValue) or (ContactName like @searchValue)
                                           ) as t
-                                          where	t.RowNumber between (@page - 1) * @pageSize + 1 and @page * @pageSize
+                                          where (@pageSize < 0) or	t.RowNumber between (@page - 1) * @pageSize + 1 and @page * @pageSize
                                           order by t.RowNumber";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;

@@ -1,0 +1,146 @@
+﻿@model LiteCommerce.Admin.Models.CountryPaginationResult
+@{
+    ViewBag.Title = "Countries";
+    int i = (Model.Page - 1) * Model.PageSize;
+}
+<div class="box box-primary">
+    <div class="box-body">
+        <form action="~/Country" method="get">
+            <div class="input-group input-group-sm">
+                <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<form action="~/Country/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px;">
+
+        @if (Model.PageCount != 0)
+        {
+            <div class="col-sm-8">
+                There are <b>@Model.RowCount</b> Countries. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount)
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-8">
+                There are <b>@Model.RowCount</b> Countries. Page 0/0.
+            </div>
+        }
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a href="~/Country/Input" class="btn btn-sm btn-primary">Add Country</a>
+                <button type="submit" class="btn btn-sm btn-danger">Delete Countries</button>
+            </div>
+        </div>
+    </div>
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:30px">
+                            <input id="selectAll" type="checkbox" />
+                        </th>
+                        <th style="width:50px">#</th>
+                        <th style="width:200px">CountryName</th>
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var country in Model.Data)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="countryIDs" value="@country.CountryID" />
+                            </td>
+                            <td>@(++i)</td>
+                            <td>
+                                <span style="display:block">@country.CountryName</span>
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-default" href="~/Country/Input/@country.CountryID/">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix text-center">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="~/Country?page=1&searchValue=@Model.SearchValue">«</a></li>
+                @if (Model.Page > 3 && Model.Page < Model.PageCount - 3)
+            {
+                if (Model.Page - 3 > 1)
+                {
+                        <li><a>...</a></li>
+                    }
+                    for (int page = Model.Page - 3; page <= Model.Page + 3; page++)
+                    {
+                        if (page == Model.Page)
+                        {
+                            <li class="active"><a href="#">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Country?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        }
+                    }
+                    if (Model.Page + 3 < Model.PageCount)
+                    {
+                        <li><a>...</a></li>
+                    }
+                }
+                else if (Model.Page <= 3)
+                {
+                    var testpage = Model.PageCount;
+                    if (Model.PageCount > 4)
+                    {
+                        testpage = Model.Page + 2;
+                    }
+                    for (int page = 1; page <= testpage; page++)
+                    {
+                        if (page == Model.Page)
+                        {
+                            <li class="active"><a href="#">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Country?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        }
+                    }
+                    if (Model.PageCount > 4)
+                    {
+                        <li><a>...</a></li>
+                    }
+                }
+                else
+                {
+                    if (Model.PageCount - 3 > 0)
+                    {
+                        <li><a>...</a></li>
+                    }
+                    for (int page = Model.Page - 2; page <= Model.PageCount; page++)
+                    {
+                        if (page == Model.Page)
+                        {
+                            <li class="active"><a href="#">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Country?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        }
+                    }
+                }
+                <li><a href="~/Country?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
+            </ul>
+        </div>
+    </div>
+</form>

@@ -11,6 +11,7 @@ namespace LiteCommerce.Admin.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [Authorize(Roles = WebUserRoles.DataManagement)]
     public class ShipperController : Controller
     {
         /// <summary>
@@ -18,7 +19,6 @@ namespace LiteCommerce.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: Shipper
-        [Authorize]
         public ActionResult Index(int page = 1, string searchValue = "")
         {
             int pageSize = 3;

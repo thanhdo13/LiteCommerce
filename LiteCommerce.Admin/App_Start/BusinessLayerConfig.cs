@@ -14,6 +14,7 @@ namespace LiteCommerce.Admin
             string connectionString = ConfigurationManager.ConnectionStrings["LiteCommerce"].ConnectionString;
             //TODO khởi tạo các BLL khi sử dụng đến 
             CataLogBLL.Initialize(connectionString);
+            UserAccountBLL.Initialize(connectionString);
         }
     }
 }

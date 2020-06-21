@@ -5,3 +5,24 @@ hoàn thành còn lại trừ product
 @Html.ValidationSummary();
 SQL server frofiler
 tutorialssteacher.com
+return json();
+bổ sung quốc gia
+bổ sung các dropdown có liên quan đến quốc gia oke!
+Bổ sung thêm bảng AttributeName lưu danh sách các tên Attribute có thể sử dụng cho Product ví dụ Size Color,Weight 
+để phục vụ cgo viêc j nhập Attribute của Product
+Hon thien chức năng cho Product (Xem tìm kiếm bổ sungm cập nhaatjm xóa) oke
+Authentication kiểm tra đăng nhập có hợp lệ hay không?
+Authorization đăng nhập được rồi sử dụng những thứ gì??
+1.Cai dat them thong tin "Title" cho lop "webUserdata" va luu tru them thong tin nay trong Cookie oke
+2.Bo sung them thong tin "Title" cho lop UserAccount oke
+3.Cai dat chuc nang Authorize cho EmployeeUserAccountDAL ma hoa MD5
+
+
+1. Bo sung cho bang Employee cot Roles nvarchar(255) Luu cac Role (GroupName) cua nhan vien theo quy uoc cac role viet phan cach nhai bang dau phay
+Vi du Accountant,Saleman
+2.Group Name cua WebUserData luu du lieu cua cot Role trong bang Employee
+3.He thong co 3 loai User (employee) voi cac quyen :
+-Nhan vien ban hang : duoc phep su dung chuc nang quan li don hang.
+-Nhan vien quan tri du lieu thi duoc phep su dung chuc nang lien quan den Catalog
+-Nhan vien quan tri tai khoan: Dc phep su dung chuc nang lien quan den nhan vien.
+Dashboard,Report,Account : thi k can Authorization.

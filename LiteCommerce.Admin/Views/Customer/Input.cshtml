@@ -2,14 +2,14 @@
 @{
 }
 <div class="box box-primary">
-    <form role="form" action="~/Customer/Input" method="post">
+    <form role="form" action="~/Customer/Input" method="post" onsubmit = "return validateForm()">
         <div class="box-header text-right">
             <a href="~/Customer">Back to List</a>
         </div>
         <div class="box-body">
             <div class="form-group">
                 <label>Customer ID:@Html.ValidationMessage("CustomerID", new { @style = "color: red" })</label>
-                <input type="text" class="form-control" placeholder="Enter Customer ID" name="CustomerID" value="@Model.CustomerID" @(Model.CustomerID != "" ? "readOnly" : "")>
+                <input type="text" class="form-control" placeholder="Enter Customer ID" id="CustomerID" name="CustomerID" value="@Model.CustomerID" @(Model.CustomerID != "" ? "readOnly" : "")>
             </div>
             <div class="form-group">
                 <label>Company Name: @Html.ValidationMessage("CompanyName", new { @style = "color: red" })</label>

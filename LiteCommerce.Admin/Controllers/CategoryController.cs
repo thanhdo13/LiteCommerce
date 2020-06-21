@@ -8,15 +8,17 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {/// <summary>
-/// 
-/// </summary>
+ /// 
+ /// </summary>
+ /// 
+    [Authorize(Roles =WebUserRoles.DataManagement)]
     public class CategoryController : Controller
     {
         // GET: Category
         /// <summary>
         /// 
         /// </summary>
-        [Authorize]
+       
 
         public ActionResult Index(int page = 1, string searchValue = "")
         {

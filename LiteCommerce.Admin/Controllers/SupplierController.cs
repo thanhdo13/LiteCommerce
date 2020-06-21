@@ -11,7 +11,7 @@ namespace LiteCommerce.Admin.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Authorize]
+    [Authorize(Roles =WebUserRoles.DataManagement)]
     public class SupplierController : Controller
     {
         /// <summary>
@@ -96,7 +96,7 @@ namespace LiteCommerce.Admin.Controllers
                 model.Phone = "";
             if (!ModelState.IsValid)
             {
-                    //ViewBag.Title = model.SupplierID = 0 ?
+                    ViewBag.Title = model.SupplierID == 0 ? "Create new Supplier" : "Edit a Supplier";
                 return View(model);
             }
             //TODO: Luu

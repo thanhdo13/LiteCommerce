@@ -139,5 +139,24 @@
         }
     });
     </script>
+    <script type="text/javascript">
+         function validateForm()  {
+             var u = document.getElementById("CustomerID").value;
+
+             if (u == "" || u.length != 5) {
+                 alert("Please enter your CustomerID (5 char)");
+                 return false;
+             }
+             return true;
+         }
+         //Hiển thị ảnh được chọn
+         document.getElementById("my_input_file").onchange = function () {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+                 document.getElementById("showThumb").src = e.target.result;
+             };
+             reader.readAsDataURL(this.files[0]);
+         };
+    </script>
 </body>
 </html>

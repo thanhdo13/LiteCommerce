@@ -48,5 +48,13 @@ namespace LiteCommerce.DataLayers
         /// <param name="employeeIDs"></param>
         /// <returns></returns>
         int Delete(int[] employeeIDs);
+        /// <summary>
+        /// kiem tra email co trung khong?
+        /// co thi tra ve 1 
+        /// khong co thi tra ve 0
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        int CheckEmail(string email);
     }
 }

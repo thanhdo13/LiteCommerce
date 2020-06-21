@@ -65,7 +65,7 @@
                             <td>@(++i)</td>
                             <td>
                                 <div class="pull-left image">
-                                    <img src="~/Themes/AdminLTE/dist/img/@employee.PhotoPath" height="60px" width="60px" class="img-circle" alt="User Image">
+                                    <img src="~/Images/@employee.PhotoPath" height="60px" width="60px" class="img-circle" alt="User Image">
                                 </div>
                                 <span style="color:#0094ff; font-weight:bold; display:block">
                                     @employee.LastName
@@ -153,7 +153,7 @@
                             <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
                         }
                     }
-                    if (Model.PageCount > 4)
+                    if (Model.PageCount > 5)
                     {
                         <li><a>...</a></li>
                     }

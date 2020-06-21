@@ -2,7 +2,7 @@
 @{
 }
 <div class="box box-primary">
-    <form role="form" action="~/Employee/Input" method="post">
+    <form role="form" action="~/Employee/Input" method="post" enctype="multipart/form-data">
         <div class="box-header text-right">
             <a href="~/Employee">Back to List</a>
         </div>
@@ -11,11 +11,12 @@
                 <div class="form-group row">
                     <div class="col-sm-4">
                         <div class="pull-left image">
-                            <img src="~/Themes/AdminLTE/dist/img/@Model.PhotoPath" height="100px" width="100px" class="img-circle" alt="User Image">
+                            <img id="showThumb" src="~/Images/@Model.PhotoPath" height="100px" width="100px" class="img-circle" alt="User Image">
                         </div>
                         <div >
-                            <label style="margin-left: 10px;" for="exampleInputFile">Image input</label>
-                            <label style="margin-left: 10px; color:#555; "> <input type="file" id="exampleInputFile" name="PhotoPath" value="">@Model.PhotoPath</label>
+                             <label style="margin-left: 10px;" for="exampleInputFile">Image input @ViewBag.Message</label>
+                            <label style="margin-left: 10px; color:#555; "> <input type="file" id="my_input_file" name="uploadFile" ></label>
+                            <input type="hidden" name="PhotoPath" id="PhotoPath" value="@Model.PhotoPath"/>
                         </div>
                     </div>
                 </div>
@@ -60,7 +61,7 @@
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label>Country:</label>
-                        <select class="form-control">
+                        <select class="form-control" name="Country">
                             <option value="">-- Choose Country --</option>
                             @foreach (var country in SelectListHelper.Countries())
                             {
@@ -91,12 +92,13 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label>Email:</label>
+                        <label>Email:@Html.ValidationMessage("Email", new { @style = "color: red" })</label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-fax"></i>
                             </div>
-                            <input type="text" class="form-control" name="Email" value="@Model.Email">
+                            <input type="text" class="form-control" name="EmailNew" value="@Model.Email">
+                            <input type="hidden" class="form-control" name="Email" value="@Model.Email">
                         </div>
                     </div>
                             <input type="hidden" class="form-control" name="Password" value="@Model.Password">

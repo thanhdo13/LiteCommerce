@@ -171,7 +171,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                                         where (@searchValue = N'') or(CompanyName like @searchValue)
 
                                     ) as t
-                                    where t.RowNumber between (@page - 1) * @pageSize + 1 and @page * @pageSize";
+                                    where (@pageSize < 0) or t.RowNumber between (@page - 1) * @pageSize + 1 and @page * @pageSize";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@page", page);
