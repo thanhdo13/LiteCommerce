@@ -9,17 +9,27 @@ using System.Web.Security;
 
 namespace LiteCommerce.Admin.Controllers
 {/// <summary>
-/// 
+/// điều phối trang của tài khoản
 /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
         // GET: Account
-       
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <returns></returns>
         public ActionResult ChangePassword()
         {
             return View();
         }
+        /// <summary>
+        /// đổi mật khẩu 
+        /// </summary>
+        /// <param name="pw"></param>
+        /// <param name="pwn"></param>
+        /// <param name="confirmpw"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ChangePassword(string pw="",string pwn="",string confirmpw="")
         {
@@ -45,12 +55,20 @@ namespace LiteCommerce.Admin.Controllers
             }
            
         }
+        /// <summary>
+        /// trang chủ của nhân viên
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             WebUserData userData = User.GetUserData();
             Employee employee = CataLogBLL.GetEmployee(Convert.ToInt32(userData.UserID));
             return View(employee);
         }
+        /// <summary>
+        /// Đăng xuất của nhân viên
+        /// </summary>
+        /// <returns></returns>
         public ActionResult SignOut()
         {
             Session.Abandon();
@@ -58,6 +76,10 @@ namespace LiteCommerce.Admin.Controllers
             System.Web.Security.FormsAuthentication.SignOut();
             return RedirectToAction("SignIn");
         }
+        /// <summary>
+        /// đăng nhập của nhân viên
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SignIn()
@@ -67,6 +89,12 @@ namespace LiteCommerce.Admin.Controllers
             return View();
             
         }
+        /// <summary>
+        /// lấy thông tin của phiên đăng nhập
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -110,11 +138,22 @@ namespace LiteCommerce.Admin.Controllers
             //     return View();
             // }
         }
+        /// <summary>
+        /// QUên mật khẩu 
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
+        /// <summary>
+        ///  QUên mật khẩu có thể thay đổi mật khẩu nếu email đúng !
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pwn"></param>
+        /// <param name="confirmpw"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         public ActionResult ForgotPassword(string email="",string pwn="", string confirmpw="")

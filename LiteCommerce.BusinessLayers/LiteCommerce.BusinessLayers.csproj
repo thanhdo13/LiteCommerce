@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CataLogBLL.cs" />
+    <Compile Include="DashboardBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserAccountBLL.cs" />
     <Compile Include="UserAccountTypes.cs" />

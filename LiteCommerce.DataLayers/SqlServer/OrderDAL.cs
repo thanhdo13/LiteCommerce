@@ -9,11 +9,14 @@ using System.Data;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+    /// <summary>
+    /// các chức năng liên quan đến hóa đơn 
+    /// </summary>
     public class OrderDAL : IOrderDAL
     {
         private string connectionString;
         /// <summary>
-        /// 
+        /// kết nối
         /// </summary>
         /// <param name="connectionString"></param>
         public OrderDAL(string connectionString)
@@ -21,16 +24,17 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
         /// <summary>
-        /// 
+        /// thêm 1 order SQL
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         public int Add(Order data)
         {
+            //TODO: add order
             throw new NotImplementedException();
         }
         /// <summary>
-        /// 
+        /// đếm số lượng order SQL
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -59,25 +63,28 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xóa nhiều order SQL
         /// </summary>
         /// <param name="orderIDs"></param>
         /// <returns></returns>
         public int Delete(int[] orderIDs)
         {
+            //TODO: delete order
             throw new NotImplementedException();
         }
         /// <summary>
         /// 
+        /// lấy ra 1 order SQL
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
         public Order Get(int orderID)
         {
+            //TODO: get order
             throw new NotImplementedException();
         }
         /// <summary>
-        /// 
+        /// Liệt kê danh sách các order SQL
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -140,12 +147,13 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// update 1 order
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
         public bool Update(Order orderID)
         {
+            //TODO: update order
             throw new NotImplementedException();
         }
     }

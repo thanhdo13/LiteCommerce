@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
+    /// <summary>
+    /// interface của hóa đơn
+    /// </summary>
     public interface IOrderDAL
     {
         /// <summary>
@@ -18,13 +21,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         List<Order> List(int page, int pageSize, string searchValue);
         /// <summary>
-        /// 
+        /// đếm số lượng tìm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         int Count(string searchValue);
         /// <summary>
-        /// 
+        /// lấy ra thông tin của 1 hóa đơn
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
@@ -37,13 +40,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         int Add(Order data);
         /// <summary>
-        /// 
+        /// cập nhật thông tin của hóa đơn
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
         bool Update(Order orderID);
         /// <summary>
-        /// 
+        /// xóa nhiều hóa đơn
         /// </summary>
         /// <param name="orderIDs"></param>
         /// <returns></returns>

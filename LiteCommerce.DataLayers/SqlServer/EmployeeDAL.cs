@@ -9,6 +9,9 @@ using System.Data;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+    /// <summary>
+    /// các chức năng liên quan đến nhân viên SQL
+    /// </summary>
     public class EmployeeDAL : IEmployeeDAL
     {
         private string connectionString;
@@ -20,6 +23,11 @@ namespace LiteCommerce.DataLayers.SqlServer
         {
             this.connectionString = connectionString;
         }
+        /// <summary>
+        /// thêm 1 nhân viên SQL
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int Add(Employee data)
         {
             int employeeID = 0;
@@ -84,7 +92,12 @@ namespace LiteCommerce.DataLayers.SqlServer
 
             return employeeID;
         }
-
+        /// <summary>
+        /// kiểm tra Email đã có trong CSDL chưa?? có trả về 1 
+        /// chưa có thì trả về 0
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public int CheckEmail(string email)
         {
             int count = 0;
@@ -123,6 +136,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
 
+        /// <summary>
+        /// Xóa nhiều nhân viên SQL
+        /// </summary>
+        /// <param name="employeeIDs"></param>
+        /// <returns></returns>
         public int Delete(int[] employeeIDs)
         {
             int countDeleted = 0;
@@ -149,7 +167,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return countDeleted;
         }
-
+        /// <summary>
+        /// lấy ra thông tin của 1 nhân viên SQL
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <returns></returns>
         public Employee Get(int employeeID)
         {
             Employee data = null;
@@ -191,7 +213,13 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-       
+       /// <summary>
+       /// Hiển thị danh sách các nhân viên SQL
+       /// </summary>
+       /// <param name="page"></param>
+       /// <param name="pageSize"></param>
+       /// <param name="searchValue"></param>
+       /// <returns></returns>
         public List<Employee> List(int page, int pageSize, string searchValue)
         {
             List<Employee> data = new List<Employee>();
@@ -247,7 +275,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// Cập nhật 1 nhân viên
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool Update(Employee data)
         {
             int rowsAffected = 0;

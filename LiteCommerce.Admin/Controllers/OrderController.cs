@@ -9,14 +9,14 @@ using System.Web.Mvc;
 namespace LiteCommerce.Admin.Controllers
 {
     /// <summary>
-    /// 
+    /// cách phân trang điều phối của hóa đơn
     /// </summary>
     /// 
     [Authorize(Roles = WebUserRoles.SaleMan)]
     public class OrderController : Controller
     {
         /// <summary>
-        /// 
+        /// hiển thị trang chủ của hóa đơn
         /// </summary>
         /// <returns></returns>
         // GET: List
@@ -39,6 +39,11 @@ namespace LiteCommerce.Admin.Controllers
             //  viewbag.rowcount = rowcount;
             return View(model);
         }
+        /// <summary>
+        /// Tạo mới 1 hóa đơn
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Create(string id = "")
         {
             if (string.IsNullOrEmpty(id))

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {/// <summary>
- /// 
+ /// điều phối thể loại
  /// </summary>
  /// 
     [Authorize(Roles =WebUserRoles.DataManagement)]
@@ -16,9 +16,9 @@ namespace LiteCommerce.Admin.Controllers
     {
         // GET: Category
         /// <summary>
-        /// 
+        ///  Hiển thị trang chủ của thể loại
         /// </summary>
-       
+
 
         public ActionResult Index(int page = 1, string searchValue = "")
         {
@@ -39,6 +39,11 @@ namespace LiteCommerce.Admin.Controllers
             //  viewbag.rowcount = rowcount;
             return View(model);
         }
+        /// <summary>
+        /// hiển thị trang thêm hoặc lấy ra thông tin của 1 thể loại
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -69,6 +74,11 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + "" + ex.StackTrace);
             }
         }
+        /// <summary>
+        /// cập nhật hoặc thêm 1 thể loại
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Category model)
         {
@@ -101,6 +111,11 @@ namespace LiteCommerce.Admin.Controllers
                 return View(model);
             }
         }
+        /// <summary>
+        /// Xóa nhiều thể loại
+        /// </summary>
+        /// <param name="categoryIDs"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int[] categoryIDs = null)
         {

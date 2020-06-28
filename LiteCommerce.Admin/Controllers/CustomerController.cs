@@ -9,14 +9,13 @@ using System.Web.Mvc;
 namespace LiteCommerce.Admin.Controllers
 {
     /// <summary>
-    /// 
-    /// </summary>
+    /// cách phân trang điều phối của khách hàng
     [Authorize(Roles = WebUserRoles.DataManagement)]
     public class CustomerController : Controller
     {
         // GET: Customer
         /// <summary>
-        /// 
+        /// hiển thị trang chủ của khách hàng
         /// </summary>
         /// <returns></returns>
           
@@ -41,6 +40,11 @@ namespace LiteCommerce.Admin.Controllers
             //  viewbag.rowcount = rowcount;
             return View(model);
         }
+        /// <summary>
+        /// hiển thị trang thêm hoặc lấy ra thông tin của 1 khách hàng
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -66,13 +70,17 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + "" + ex.StackTrace);
             }
         }
-
+        /// <summary>
+        /// cập nhật hoặc thêm 1 khách hàng
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Customer model)
         {
             try
             {
-                //TODO: kiem tra tinh hop le cua du lieu 
+              
                 if (string.IsNullOrEmpty(model.CustomerID))
                     ModelState.AddModelError("CustomerID", "CustomerID expected");
                 if (string.IsNullOrEmpty(model.CompanyName))
@@ -96,7 +104,7 @@ namespace LiteCommerce.Admin.Controllers
                     ViewBag.Title = model.CustomerID == "" ? "Create new Customer" : "Edit a Customer";
                     return View(model);
                  }
-                //TODO: Luu
+             
                 Customer getCustomer = CataLogBLL.GetCustomer(model.CustomerID);
                 if (getCustomer == null)
                 {
@@ -117,6 +125,11 @@ namespace LiteCommerce.Admin.Controllers
             }
 
         }
+        /// <summary>
+        /// Xóa nhiều khách hàng
+        /// </summary>
+        /// <param name="customerIDs"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(string[] customerIDs = null)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LiteCommerce.DataLayers
 {
     /// <summary>
-    /// 
+    /// interface của nhà cung cấp
     /// </summary>
     public interface ISupplierDAL
     {
@@ -21,13 +21,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         List<Supplier> List(int page, int pageSize, string searchValue);
         /// <summary>
-        /// 
+        /// đếm số dòng tìm kiếm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         int Count(string searchValue);
         /// <summary>
-        /// 
+        /// lấy ra nhà cung cấp bằng supplierID
         /// </summary>
         /// <param name="supplierID"></param>
         /// <returns></returns>
@@ -40,13 +40,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         int Add(Supplier data);
         /// <summary>
-        /// 
+        /// thêm 1 supplier
         /// </summary>
         /// <param name="supplierID"></param>
         /// <returns></returns>
         bool Update(Supplier supplierID);
         /// <summary>
-        /// 
+        /// Xóa nhiều nhà cung cấp 
         /// </summary>
         /// <param name="supplierIDs"></param>
         /// <returns></returns>

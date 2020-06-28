@@ -8,6 +8,9 @@ namespace LiteCommerce.Admin.Models
 {
     public class SupplierPaginationResult : PaginationResult
     {
+        /// <summary>
+        /// danh sách các nhà cung cấp
+        /// </summary>
         public List<Supplier> Data { get; set; }
     }
 }

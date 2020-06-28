@@ -9,13 +9,13 @@ using System.Web.Mvc;
 namespace LiteCommerce.Admin.Controllers
 {
     /// <summary>
-    /// 
+    /// cách phân trang điều phối của shipper
     /// </summary>
     [Authorize(Roles = WebUserRoles.DataManagement)]
     public class ShipperController : Controller
     {
         /// <summary>
-        /// 
+        /// trang chủ shipper
         /// </summary>
         /// <returns></returns>
         // GET: Shipper
@@ -38,6 +38,11 @@ namespace LiteCommerce.Admin.Controllers
             //  viewbag.rowcount = rowcount;
             return View(model);
         }
+        /// <summary>
+        /// hiển thị trang thêm hoặc lấy ra thông tin của 1 shipper
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -67,12 +72,16 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + "" + ex.StackTrace);
             }
         }
+        /// <summary>
+        /// cập nhật hoặc thêm 1 shipper
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Shipper model)
         {
             try
             {
-                //TODO: kiem tra tinh hop le cua du lieu 
                 if (string.IsNullOrEmpty(model.CompanyName))
                     ModelState.AddModelError("CompanyName", "CompanyName expected");
                 if (string.IsNullOrEmpty(model.Phone))
@@ -82,7 +91,6 @@ namespace LiteCommerce.Admin.Controllers
                     ViewBag.Title = model.ShipperID == 0 ? "Create new Shipper" : "Edit a Shipper";
                     return View(model);
                 }
-                //TODO: Luu
                 if (model.ShipperID == 0)
                 {
                     CataLogBLL.AddShipper(model);
@@ -99,6 +107,11 @@ namespace LiteCommerce.Admin.Controllers
                 return View(model);
             }
         }
+        /// <summary>
+        /// Xóa nhiều shipper
+        /// </summary>
+        /// <param name="shipperIDs"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int[] shipperIDs = null)
         {

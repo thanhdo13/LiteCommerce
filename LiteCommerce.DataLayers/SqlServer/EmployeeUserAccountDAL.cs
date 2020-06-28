@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+    /// <summary>
+    /// các chức năng liên quan đến tài khoản của nhân viên
+    /// </summary>
     public class EmployeeUserAccountDAL : IUserAccountDAL
     {
         private string connectionString;
@@ -17,7 +20,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
         /// <summary>
-        /// 
+        /// Lấy thông tin của người đăng nhập
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
@@ -55,7 +58,12 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return user;
         }
-
+        /// <summary>
+        /// Thay đổi mật khẩu 
+        /// </summary>
+        /// <param name="Password"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool ChangePassword(string Password,string email)
         {
             int rowsAffected = 0;

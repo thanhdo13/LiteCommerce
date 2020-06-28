@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+    /// <summary>
+    /// các chức năng liên quan đến sản phẩm SQL
+    /// </summary>
     public class ProductDAL : IProduct
     {
         private string connectionString;
@@ -16,6 +19,11 @@ namespace LiteCommerce.DataLayers.SqlServer
         {
             this.connectionString = connectionString;
         }
+        /// <summary>
+        /// thêm 1 sản phẩm SQL
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int Add(Product data)
         {
             int supplierId = 0;
@@ -61,7 +69,13 @@ namespace LiteCommerce.DataLayers.SqlServer
 
             return supplierId;
         }
-
+        /// <summary>
+        /// đếm số lượng sản phẩm SQL
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <param name="supplier"></param>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public int Count(string searchValue, int supplier, int category)
         {
             int count = 0;
@@ -84,7 +98,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return count;
         }
-
+        /// <summary>
+        /// xóa nhiều sản phẩm SQL
+        /// </summary>
+        /// <param name="productIDs"></param>
+        /// <returns></returns>
         public int Delete(int[] productIDs)
         {
             int countDeleted = 0;
@@ -110,7 +128,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return countDeleted;
         }
-
+        /// <summary>
+        /// lấy ra 1 sản phẩm SQL
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
         public Product Get(int productID)
         {
             Product data = null;
@@ -146,7 +168,15 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// Liệt kê danh sách sản phẩm SQL bằng các param dưới
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <param name="supplier"></param>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public List<Product> List(int page, int pageSize, string searchValue, int supplier, int category)
         {
             List<Product> data = new List<Product>();
@@ -198,7 +228,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// cập nhật 1 sản phẩm SQL
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool Update(Product data)
         {
             int rowsAffected = 0;

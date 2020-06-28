@@ -1,52 +1,62 @@
 ﻿@model List<LiteCommerce.DomainModels.Attributes>
 @{
-    ViewBag.Title = "Edit Attribute";
+    ViewBag.Title = "Attribute";
     int i = 0;
+    int ProductID = 0;
 }
-<div class="box box-success">
-    <div class="box-body">
-        <!-- Modal Header -->
-        <table class="table table-bordered" \>
-            <thead>
-                <tr> 
-                    <th width="50">#</th>
-                    <th>Attribute Name</th>
-                    <th> Color</th>
-                    <th> Size    </th>
-                    <th width="100"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var attr in Model)
-                {
-                   
-                        <tr>
-                            <td>@(++i)</td>
-                            <form role="form" action="~/Attribute/Update" method="post">
-                                <td><div style="width: 20px"><input value="@attr.AttributeName" name="AttributeName" /></div></td>
-                                <td><input value="@attr.Color"  name="Color"/></td>
-                                <td><input value="@attr.Size"  name="Size"/></td>
-                                <input type="hidden" name="AttributeID" value="@attr.AttributeID"/>
-                                <input type="hidden" name="ProductID" value="@attr.ProductID" />
-                                <td class="text-right">
-                                    <button type="submit" class="btn btn-sm btn-primary">
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </button>
-                                    <a class="btn btn-sm btn-danger" href="~/Attribute/Delete/@attr.AttributeID">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                            </form>
-                        </tr>
-                }
-                </tbody>
-                </table>
+<form action="#" method="post">
+        <div class="container-fluid row" style="margin-bottom:10px;">
+            <div class="col-md-12 text-right">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-sm btn-primary">Add Attribute</a>
+                    <button type="submit" class="btn btn-sm btn-danger">Delete Attributes</button>
+                </div>
             </div>
-    </div>
-
-        <div class="box-footer" style="margin-top: -20px;">
-            <a class="btn btn-sm btn-default" href="~/Product">
-                Cancel
-            </a>
         </div>
+    <div class="box box-success">
+        <div class="box-body">
+            <!-- Modal Header -->
+            <table class="table table-bordered" \>
+                <thead>
+                    <tr>
+                        <th style="width:30px">
+                            <input id="selectAll" type="checkbox" />
+                        </th>
+                        <th width="50">#</th>
+                        <th>Attribute Name</th>
+                        <th> Color</th>
+                        <th> Size    </th>
+                        <th width="100"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var attr in Model)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="attributeIDs" value="@attr.AttributeID" />
+                            </td>
+                            <td>@(++i)</td>
+                            @ProductID = @attr.ProductID;
+                            <td><div style="width: 20px"><input value="@attr.AttributeName" name="AttributeName" /></div></td>
+                            <td>@attr.Color</td>
+                            <td>@attr.Size</td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-default" href="#">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
 
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box-footer" style="margin-top: -20px;">
+        <a class="btn btn-sm btn-default" href="~/Product">
+            Cancel
+        </a>
+    </div>
+    <input type="hidden" name="ProductID" value="@ProductID">
+</form>

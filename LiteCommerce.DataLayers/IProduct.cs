@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
+    /// <summary>
+    /// interface của sản phẩm
+    /// </summary>
     public interface IProduct
     {
         /// <summary>
@@ -18,13 +21,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         List<Product> List(int page, int pageSize, string searchValue, int supplier, int category);
         /// <summary>
-        /// 
+        /// đếm số lượng tìm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         int Count(string searchValue, int supplier, int category);
         /// <summary>
-        /// 
+        /// lấy ra 1 sản phẩm bằng ID của sản phẩm đó
         /// </summary>
         /// <param name="productID"></param>
         /// <returns></returns>
@@ -37,13 +40,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         int Add(Product data);
         /// <summary>
-        /// 
+        /// cập nhật lại sản phẩm
         /// </summary>
         /// <param name="productID"></param>
         /// <returns></returns>
         bool Update(Product productID);
         /// <summary>
-        /// 
+        /// xóa nhiều sản phẩm
         /// </summary>
         /// <param name="productIDs"></param>
         /// <returns></returns>

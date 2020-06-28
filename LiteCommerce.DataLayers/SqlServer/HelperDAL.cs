@@ -9,14 +9,24 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+   /// <summary>
+   /// các chức naawnh liên quan đến các quốc gia SQL
+   /// </summary>
     public class HelperDAL : IHelperDAL
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private string connectionString;
         public HelperDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
-
+        /// <summary>
+        /// Thêm 1 quốc gia
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int Add(Country data)
         {
             int countryID = 0;
@@ -44,7 +54,11 @@ namespace LiteCommerce.DataLayers.SqlServer
 
             return countryID;
         }
-
+        /// <summary>
+        /// đếm số lượng quốc gia SQL
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public int Count(string searchValue)
         {
             int count = 0;
@@ -65,7 +79,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return count;
         }
-
+        /// <summary>
+        /// Xóa nhiều quốc gia quốc gia SQL theeo các ID
+        /// </summary>
+        /// <param name="countryIDs"></param>
+        /// <returns></returns>
         public int Delete(int[] countryIDs)
         {
             int countDeleted = 0;
@@ -91,7 +109,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return countDeleted;
         }
-
+        /// <summary>
+        /// Lấy ra thông tin của 1 quốc gia SQL
+        /// </summary>
+        /// <param name="countryID"></param>
+        /// <returns></returns>
         public Country Get(int countryID)
         {
             Country data = null;
@@ -121,7 +143,13 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// Liệt kê danh sách các quốc gia SQL 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public List<Country> ListofCountry(int page, int pageSize, string searchValue)
         {
             if (!string.IsNullOrEmpty(searchValue))
@@ -165,7 +193,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// cập nhật quốc gia SQL
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool Update(Country data)
         {
             int rowsAffected = 0;

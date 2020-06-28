@@ -9,14 +9,24 @@ using System.Data;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+    /// <summary>
+    /// Các chức năng liên quan đến thể loại SQL
+    /// </summary>
     public class CategoryDAL : ICategoryDAL
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private string connectionString;
         public CategoryDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
-
+        /// <summary>
+        /// thêm 1 thể loại SQL
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int Add(Category data)
         {
             int supplierId = 0;
@@ -47,7 +57,11 @@ namespace LiteCommerce.DataLayers.SqlServer
 
             return supplierId;
         }
-
+        /// <summary>
+        /// Đếm số lượng thể loại SQL
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public int Count(string searchValue)
         {
             int count = 0;
@@ -67,7 +81,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return count;
         }
-
+        /// <summary>
+        /// Xóa nhiều thể loại SQL
+        /// </summary>
+        /// <param name="categoryIDs"></param>
+        /// <returns></returns>
         public int Delete(int[] categoryIDs)
         {
             int countDeleted = 0;
@@ -94,7 +112,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return countDeleted;
         }
-
+        /// <summary>
+        /// lấy ra thông tin của 1 thể loại SQL
+        /// </summary>
+        /// <param name="categoryID"></param>
+        /// <returns></returns>
         public Category Get(int categoryID)
         {
             Category data = null;
@@ -125,7 +147,13 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// Hiển thị ra danh sách các thể loại SQL
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public List<Category> List(int page, int pageSize, string searchValue)
         {
             List<Category> data = new List<Category>();
@@ -172,7 +200,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         }
 
         /// <summary>
-        /// 
+        /// cập nhật thể loại SQL
         /// </summary>
         /// <param name="connectionString"></param>
         

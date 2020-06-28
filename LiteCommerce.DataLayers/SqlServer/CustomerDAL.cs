@@ -10,6 +10,9 @@ using System.Data.Common;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+    /// <summary>
+    /// các chức năng liên quan đến khách hàng
+    /// </summary>
     public class CustomerDAL : ICustomerDAL
     {
         private string connectionString;
@@ -22,7 +25,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
         /// <summary>
-        /// 
+        /// thêm 1 khách hàng SQL
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -79,7 +82,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return customerID;
         }
         /// <summary>
-        /// 
+        /// đếm số lượng khách hàng SQL
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -104,7 +107,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xóa nhiều khách hàng SQL
         /// </summary>
         /// <param name="customerIDs"></param>
         /// <returns></returns>
@@ -135,7 +138,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return countDeleted;
         }
         /// <summary>
-        /// 
+        /// lấy ra thông tin của 1 khách hàng SQL
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
@@ -177,7 +180,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// Hiển thị ra danh sách các khách hàng SQL
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -235,7 +238,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// cập nhật thông tin của 1 khách hàng SQL
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>

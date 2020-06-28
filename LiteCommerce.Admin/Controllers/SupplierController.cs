@@ -9,17 +9,16 @@ using System.Web.Mvc;
 namespace LiteCommerce.Admin.Controllers
 {
     /// <summary>
-    /// 
+    /// cách phân trang điều phối của nhà cung cấp
     /// </summary>
     [Authorize(Roles =WebUserRoles.DataManagement)]
     public class SupplierController : Controller
     {
         /// <summary>
-        /// 
+        /// Trang chủ của nhà cung cấp 
         /// </summary>
         /// <returns></returns>
         // GET: Supplier
-
         public ActionResult Index(int page = 1, string searchValue = "")
         {
             int pageSize = 3;
@@ -39,6 +38,11 @@ namespace LiteCommerce.Admin.Controllers
             //  viewbag.rowcount = rowcount;
             return View(model);
         }
+        /// <summary>
+        /// hiển thị trang thêm hoặc lấy ra thông tin của 1 nhà cung cấp
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -71,11 +75,16 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + "" + ex.StackTrace);
             }
         }
+        /// <summary>
+        /// cập nhật hoặc thêm 1 nhà cung cấp
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Supplier model)
         {
             try { 
-            //TODO: kiem tra tinh hop le cua du lieu 
+            
             if (string.IsNullOrEmpty(model.CompanyName))
                 ModelState.AddModelError("CompanyName", "CompanyName expected");
             if (string.IsNullOrEmpty(model.ContactName))
@@ -99,7 +108,6 @@ namespace LiteCommerce.Admin.Controllers
                     ViewBag.Title = model.SupplierID == 0 ? "Create new Supplier" : "Edit a Supplier";
                 return View(model);
             }
-            //TODO: Luu
             if (model.SupplierID == 0)
                 {
                     CataLogBLL.AddSupplier(model);

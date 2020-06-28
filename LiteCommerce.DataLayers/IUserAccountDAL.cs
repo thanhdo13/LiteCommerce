@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LiteCommerce.DataLayers
 {
     /// <summary>
-    /// 
+    /// interface của tài khoản 
     /// </summary>
     public interface IUserAccountDAL
     {
@@ -21,6 +21,12 @@ namespace LiteCommerce.DataLayers
         /// <param name="password"></param>
         /// <returns></returns>
         UserAccount Authorize(string userName, string password);
+        /// <summary>
+        /// Thay đổi mật khẩu 
+        /// </summary>
+        /// <param name="Password"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         bool ChangePassword(string Password,string email);
 
     }

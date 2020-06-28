@@ -8,9 +8,18 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {
+    /// <summary>
+    /// cách điều phối của trang quốc gia
+    /// </summary>
     [Authorize(Roles = WebUserRoles.DataManagement)]
     public class CountryController : Controller
     {
+        /// <summary>
+        /// hiển thị trang chủ của khách hàng
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         // GET: Country
         public ActionResult Index(int page = 1, string searchValue = "")
         {
@@ -28,6 +37,11 @@ namespace LiteCommerce.Admin.Controllers
             };
             return View(model);
         }
+        /// <summary>
+        /// hiển thị trang thêm hoặc lấy ra thông tin của 1 quốc gia
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -58,12 +72,17 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + "" + ex.StackTrace);
             }
         }
+        /// <summary>
+        /// cập nhật hoặc thêm 1 quốc gia
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Country model)
         {
             try
             {
-                //TODO: kiem tra tinh hop le cua du lieu 
+               
                 if (string.IsNullOrEmpty(model.CountryName))
                     ModelState.AddModelError("CountryName", "CountryName expected");
                 
@@ -72,7 +91,7 @@ namespace LiteCommerce.Admin.Controllers
                     ViewBag.Title = model.CountryID == 0 ? "Create new Country" : "Edit a Country";
                     return View(model);
                 }
-                //TODO: Luu
+  
                 if (model.CountryID == 0)
                 {
                     CataLogBLL.AddCountry(model);
@@ -89,6 +108,11 @@ namespace LiteCommerce.Admin.Controllers
                 return View(model);
             }
         }
+        /// <summary>
+        /// Xóa nhiều quốc gia
+        /// </summary>
+        /// <param name="countryIDs"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int[] countryIDs = null)
         {

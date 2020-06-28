@@ -1,6 +1,59 @@
-﻿
+﻿@model LiteCommerce.DomainModels.Dashboard
 @{
-    ViewBag.Title = "Dashboard";
-    ViewBag.smallTitle = "Import things ";
+    ViewBag.Title = "Dashboard";    
 }
+<div class="container">
+<h2 id="trThongKe" style="padding-bottom: 37px; font-size: 23px; text-align: center; padding-top: 16px;">
+    THỐNG KÊ DOANH THU THEO  THÁNG TRONG 
+    NĂM <span id="nam">@Model.Year</span>
+</h2>
+<div class="card shadow mb-4">
+    <div class="card-body box box-success">
+        <div class="form-group">
+            <form >
+                <div style="width: 100px; margin-left: auto;">
+                    @Html.DropDownListFor(m => m.Year, SelectListHelper.Years(), new { @class = "text form-control"})
+                </div>
+            </form>
+            
+            <span >Total :</span><span id="ToTal" style="color:#646464;font-weight:bold"> @Model.ToTal() $ </span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="tr_tableThongKe">
+                    <th>Tháng 1</th>
+                    <th>Tháng 2</th>
+                    <th>Tháng 3</th>
+                    <th>Tháng 4</th>
+                    <th>Tháng 5</th>
+                    <th>Tháng 6</th>
+                    <th>Tháng 7</th>
+                    <th>Tháng 8</th>
+                    <th>Tháng 9</th>
+                    <th>Tháng 10</th>
+                    <th>Tháng 11</th>
+                    <th>Tháng 12</th>
 
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr id="tableThongKe">
+                    <td>@Model.Jan $</td>
+                    <td>@Model.Feb $</td>
+                    <td>@Model.Mar $</td>
+                    <td>@Model.Apr $</td>
+                    <td>@Model.May $</td>
+                    <td>@Model.Jun $</td>
+                    <td>@Model.Jul $</td>
+                    <td>@Model.Aug $</td>
+                    <td>@Model.Sep $</td>
+                    <td>@Model.Oct $</td>
+                    <td>@Model.Nov $</td>
+                    <td>@Model.Dec $</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

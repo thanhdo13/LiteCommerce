@@ -8,6 +8,9 @@ namespace LiteCommerce.Admin.Models
 {
     public class CategoryPaginationResult : PaginationResult
     {
+        /// <summary>
+        /// danh sách các thể loại
+        /// </summary>
         public List<Category> Data { get; set; }
     }
 }

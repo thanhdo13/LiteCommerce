@@ -76,6 +76,8 @@
     <script src="~/Themes/AdminLTE/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/Themes/AdminLTE/dist/js/demo.js"></script>
+    <script src="~/Scripts/thongketheonam.js"></script>
+    
     <script>
   $(document).ready(function () {
     $('.sidebar-menu').tree()
@@ -128,7 +130,9 @@
     });
   });
     </script>
+   
     <script>
+        // chọn tất cả checkbox
     $("#selectAll").click(function () {
         $("input[type=checkbox]").prop("checked", $(this).prop("checked"));
     });

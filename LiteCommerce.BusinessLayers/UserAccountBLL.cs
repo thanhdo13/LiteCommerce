@@ -24,6 +24,13 @@ namespace LiteCommerce.BusinessLayers
         {
             _connectionString = connectionString;   
         }
+        /// <summary>
+        /// Phân chia tài khoản kết nối là nhân viên, khách hàng , shipper để trả về thông tin liên quan
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
         public static UserAccount Authorize(string userName, string password,UserAccountTypes userType)
         {
             switch (userType)
@@ -39,6 +46,12 @@ namespace LiteCommerce.BusinessLayers
             }
             return userAccountDB.Authorize(userName, password);
         }
+        /// <summary>
+        /// gọi hàm trả về thay đổi mật khẩu 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool ChangePassword(string password,string email)
         {
             return userAccountDB.ChangePassword(password,email);

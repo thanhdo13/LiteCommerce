@@ -8,8 +8,16 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class MaHoaMD5Hepler
     {
+        /// <summary>
+        /// Mã hóa mật khẩu về encodeMD5
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string EncodeMD5(string text)
         {
             try

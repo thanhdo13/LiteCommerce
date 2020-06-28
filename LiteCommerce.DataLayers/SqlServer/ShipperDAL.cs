@@ -9,6 +9,9 @@ using System.Data;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {  
+    /// <summary>
+    /// các chức năng liên quan đến shipper SQL
+    /// </summary>
     public class ShipperDAL : IShipperDAL
     {
         private string connectionString;
@@ -17,7 +20,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
         /// <summary>
-        /// 
+        /// thêm 1 shipper SQL
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -53,7 +56,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return shipperID;
         }
         /// <summary>
-        /// 
+        /// đếm số lượng shipper SQL
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -77,7 +80,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xóa nhiều shipper SQL
         /// </summary>
         /// <param name="shipperIDs"></param>
         /// <returns></returns>
@@ -108,7 +111,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return countDeleted;
         }
         /// <summary>
-        /// 
+        /// lấy ra 1 shipper SQL
         /// </summary>
         /// <param name="shipperID"></param>
         /// <returns></returns>
@@ -143,7 +146,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// liệt kê danh sách các shipper SQL
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -195,7 +198,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// cập nhật shipper SQL
         /// </summary>
         /// <param name="shipperID"></param>
         /// <returns></returns>

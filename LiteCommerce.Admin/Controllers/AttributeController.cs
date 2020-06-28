@@ -9,9 +9,17 @@ using System.Web.Routing;
 
 namespace LiteCommerce.Admin.Controllers
 {
+    /// <summary>
+    /// điều phối thuộc tính của thuộc tính của sản phẩm
+    /// </summary>
     [Authorize(Roles = WebUserRoles.DataManagement)]
     public class AttributeController : Controller
     {
+        /// <summary>
+        /// trang chủ của các thuộc tính
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: Attribute
         public ActionResult Index(string id="")
         {
@@ -19,6 +27,11 @@ namespace LiteCommerce.Admin.Controllers
             List<Attributes> model = CataLogBLL.GetListAttribute(productID);
             return View(model);
         }
+        /// <summary>
+        /// hiển thị trang thêm , lấy ra và cập nhật luôn thông tin của 1 thuộc tính
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Update(Attributes model)
         {
@@ -31,16 +44,51 @@ namespace LiteCommerce.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Title = "Edit Attribute";
-                //return View(model);
             }
             CataLogBLL.UpdateAttribute(model);
             return RedirectToAction("Index", new{ id = model.ProductID});
         }
-        public ActionResult Delete(string attributeID)
+        /// <summary>
+        /// Xóa nhiều thuộc tính
+        /// </summary>
+        /// <param name="attributeID"></param>
+        /// <returns></returns>
+        public ActionResult Delete(int[] attributeIDs, int ProductID)
         {
-
-            return RedirectToAction("Index", new { id = 86});
+            if (attributeIDs != null)
+            {
+                CataLogBLL.DeleteCategories(attributeIDs);
+            }
+            return RedirectToAction("Index", new { id = ProductID });
         }
+        /// <summary>
+        /// lấy ra 1 thuộc tính
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Input(string id = "")
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                ViewBag.Title = " Create new Attribute";
+                Attributes newAttrribute = new Attributes()
+                {
+                    AttributeID = 0
 
+                };
+                return View(newAttrribute);
+            }
+            else
+            {
+                ViewBag.Title = "Edit a Attribute";
+                Attributes editAttrribute = CataLogBLL.GetAttribute(Convert.ToInt32(id));
+                if (editAttrribute == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                return View(editAttrribute);
+            }
+        }
         }
 }

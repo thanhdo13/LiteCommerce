@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
+    /// <summary>
+    /// interface của nhân viên
+    /// </summary>
     public interface IEmployeeDAL
     {
         /// <summary>
@@ -18,13 +21,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         List<Employee> List(int page, int pageSize, string searchValue);
         /// <summary>
-        /// 
+        /// đếm số lượng nhân viên tìm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         int Count(string searchValue);
         /// <summary>
-        /// 
+        /// lấy ra thông tin của 1 nhân viên đó
         /// </summary>
         /// <param name="employeeID"></param>
         /// <returns></returns>
@@ -37,13 +40,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         int Add(Employee data);
         /// <summary>
-        /// 
+        /// cập nhật thông tin cho 1 nhân viên
         /// </summary>
         /// <param name="employeeID"></param>
         /// <returns></returns>
         bool Update(Employee employeeID);
         /// <summary>
-        /// 
+        /// xóa nhiều nhân viên
         /// </summary>
         /// <param name="employeeIDs"></param>
         /// <returns></returns>

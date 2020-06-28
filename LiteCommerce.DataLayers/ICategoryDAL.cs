@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
+    /// <summary>
+    /// interface của thể loại
+    /// </summary>
     public interface ICategoryDAL
     {
         /// <summary>
@@ -18,13 +21,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         List<Category> List(int page, int pageSize, string searchValue);
         /// <summary>
-        /// 
+        /// đếm số lượng thể loại tìm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         int Count(string searchValue);
         /// <summary>
-        /// 
+        /// lấy ra thông tin của 1 thể loại
         /// </summary>
         /// <param name="categoryID"></param>
         /// <returns></returns>
@@ -37,13 +40,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         int Add(Category data);
         /// <summary>
-        /// 
+        /// cập nhật lại thông tin của thể loại đó
         /// </summary>
         /// <param name="categoryID"></param>
         /// <returns></returns>
         bool Update(Category categoryID);
         /// <summary>
-        /// 
+        /// xóa nhiều thể loại
         /// </summary>
         /// <param name="categoryIDs"></param>
         /// <returns></returns>

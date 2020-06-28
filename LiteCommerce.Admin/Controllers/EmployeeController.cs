@@ -9,12 +9,15 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {/// <summary>
-/// 
+/// cách phân trang điều phối của nhân viên
 /// </summary>
     public class EmployeeController : Controller
-    {/// <summary>
-     /// 
+    {
+     /// <summary>
+     /// Hiển thị trang chủ của nhân viên
      /// </summary>
+     /// <param name="page"></param>
+     /// <param name="searchValue"></param>
      /// <returns></returns>
         // GET: Employee
         [Authorize(Roles = WebUserRoles.AccountAdministrationStaff)]
@@ -37,6 +40,11 @@ namespace LiteCommerce.Admin.Controllers
             //  viewbag.rowcount = rowcount;
             return View(model);
         }
+        /// <summary>
+        /// hiển thị trang thêm hoặc lấy ra thông tin của 1 nhân viên
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -67,6 +75,13 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + "" + ex.StackTrace);
             }
         }
+        /// <summary>
+        /// cập nhật hoặc thêm 1 nhân viên
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="uploadFile"></param>
+        /// <param name="EmailNew"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Employee model,HttpPostedFileBase uploadFile, string EmailNew)
         {
@@ -82,7 +97,6 @@ namespace LiteCommerce.Admin.Controllers
                  }
             try
             {
-                //TODO: kiem tra tinh hop le cua du lieu 
                 
                 if (string.IsNullOrEmpty(model.FirstName))
                     ModelState.AddModelError("FirstName", "FirstName expected");
@@ -119,12 +133,11 @@ namespace LiteCommerce.Admin.Controllers
                 }
                 if (!ModelState.IsValid)
                 {
-                    //ViewBag.Title = model.SupplierID = 0 ?
+                   
                     ViewBag.Title = model.EmployeeID == 0 ? "Create new Employee" : "Edit a Employee";
                     Employee editEmployee = CataLogBLL.GetEmployee(Convert.ToInt32(model.EmployeeID));
                     return View(editEmployee);
                 }
-                //TODO: Luu
 
                 if (model.EmployeeID == 0)
                 {
@@ -139,10 +152,15 @@ namespace LiteCommerce.Admin.Controllers
             catch (Exception ex)
             {
                 return Content(ex.Message + "" + ex.StackTrace);
-               // return View(model);
+              
             }
 
         }
+        /// <summary>
+        /// Xóa nhiều nhân viên
+        /// </summary>
+        /// <param name="employeeIDs"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int[] employeeIDs = null)
         {

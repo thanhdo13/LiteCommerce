@@ -28,6 +28,23 @@ namespace LiteCommerce.Admin
             }
             return list;
         }
+        public static List<SelectListItem> Years(bool allowSelectAll = true)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (allowSelectAll)
+            {
+                foreach (int year in DashboardBLL.Year())
+                {
+                    list.Add(new SelectListItem() { Value = year.ToString(), Text = year.ToString() });
+                }
+            }
+            return list;
+        }
+        /// <summary>
+        /// danh sách các product
+        /// </summary>
+        /// <param name="allowSelectAll"></param>
+        /// <returns></returns>
         public static List<SelectListItem> ProductID(bool allowSelectAll = true)
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -40,6 +57,11 @@ namespace LiteCommerce.Admin
             }
             return list;
         }
+        /// <summary>
+        /// ds các nhà cung cấp
+        /// </summary>
+        /// <param name="allowSelectAll"></param>
+        /// <returns></returns>
         public static List<SelectListItem> Suppliers(bool allowSelectAll = true)
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -49,10 +71,13 @@ namespace LiteCommerce.Admin
                 list.Add(new SelectListItem() { Value = supplier.SupplierID.ToString(), Text = supplier.CompanyName.ToString() });
                 }
             }
-            // TODO: Add ds category
-            //list.Add( new SelectListItem() { Value = "0", Text = "Choose Category"  });
             return list;
         }
+        /// <summary>
+        /// ds các thể loại
+        /// </summary>
+        /// <param name="allowSelectAll"></param>
+        /// <returns></returns>
         public static List<SelectListItem> Categories(bool allowSelectAll = true)
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -65,7 +90,11 @@ namespace LiteCommerce.Admin
             }
             return list;
         }
-
+        /// <summary>
+        /// ds các shipper
+        /// </summary>
+        /// <param name="allowSelectAll"></param>
+        /// <returns></returns>
             public static List<SelectListItem> Shippers(bool allowSelectAll = true)
         {
             List<SelectListItem> list = new List<SelectListItem>();

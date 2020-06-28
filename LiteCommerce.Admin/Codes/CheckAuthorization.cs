@@ -5,8 +5,16 @@ using System.Web;
 
 namespace LiteCommerce.Admin
 {
+    /// <summary>
+    /// Xử lý role của nhân viên 
+    /// </summary>
     public static class CheckAuthorization
     {
+        /// <summary>
+        /// Xử lý role của nhân viên về DataManagement
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string CheckAuthorizationDATA(string text)
         {
             try
@@ -24,6 +32,11 @@ namespace LiteCommerce.Admin
                 return "";
             }
         }
+        /// <summary>
+        /// Xử lý role của nhân viên về SaleMan
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string CheckAuthorizationSale(string text)
         {
             try
@@ -41,6 +54,11 @@ namespace LiteCommerce.Admin
                 return "";
             }
         }
+        /// <summary>
+        /// Xử lý role của nhân viên về AccountAdministrationStaff
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string CheckAuthorizationAcc(string text)
         {
             try

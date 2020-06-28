@@ -6,11 +6,11 @@ using System.Web;
 
 namespace LiteCommerce.Admin.Models
 {
-    public class CountryPaginationResult : PaginationResult
+    public class AtrributePaginationResult : PaginationResult
     {
         /// <summary>
-        /// danh sách các quốc gia 
+        /// danh sách các attribute
         /// </summary>
-        public List<Country> Data { get; set; }
+        public List<Attributes> Data { get; set; }
     }
 }

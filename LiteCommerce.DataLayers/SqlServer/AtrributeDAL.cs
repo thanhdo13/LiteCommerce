@@ -10,14 +10,24 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+    /// <summary>
+    /// các chức năng liên quan đến thuộc tính của sản phẩm
+    /// </summary>
     public class AtrributeDAL : IAttributeDAL
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private string connectionString;
         public AtrributeDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
-
+        /// <summary>
+        /// thêm 1 thuộc tính mới
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int Add(Attributes data)
         {
             int atrributeID = 0;
@@ -55,7 +65,49 @@ namespace LiteCommerce.DataLayers.SqlServer
 
             return atrributeID;
         }
+        /// <summary>
+        /// Lấy ra 1 thuộc tính SQL
+        /// </summary>
+        /// <param name="attributeID"></param>
+        /// <returns></returns>
+        public Attributes Get(int attributeID)
+        {
+            Attributes data = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"SELECT * FROM Attributes WHERE AttributeID = @AttributeID";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@AttributeID", attributeID);
+
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dbReader.Read())
+                    {
+                        data = new Attributes()
+                        {
+                            AttributeID = Convert.ToInt32(dbReader["AttributeID"]),
+                            AttributeName = Convert.ToString(dbReader["AttributeName"]),
+                            Color = Convert.ToString(dbReader["Color"]),
+                            ProductID = Convert.ToInt32(dbReader["ProductID"]),
+                            Size = Convert.ToString(dbReader["Size"])
+                        };
+                    }
+                }
+
+                connection.Close();
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// Hiển ra tất cả các thuộc tính của 1 sản phẩm SQL
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
         public List<Attributes> GetListAttribute(int productID)
         {
             List<Attributes> data = new List<Attributes>();
@@ -88,7 +140,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// Cập nhật thuộc tính SQL
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool Update(Attributes data)
         {
             int rowsAffected = 0;

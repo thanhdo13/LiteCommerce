@@ -12,7 +12,7 @@ namespace LiteCommerce.Admin.Controllers
     public class ReportController : Controller
     {
         /// <summary>
-        /// 
+        /// trang chủ 
         /// </summary>
         /// <returns></returns>
         // GET: Report

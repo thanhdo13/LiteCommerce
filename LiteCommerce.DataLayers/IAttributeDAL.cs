@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
+    /// <summary>
+    /// interface của thuộc tính 
+    /// </summary>
     public interface IAttributeDAL
     {
         List<Attributes>  GetListAttribute(int productID);
@@ -22,5 +25,11 @@ namespace LiteCommerce.DataLayers
         /// <param name="attributeID"></param>
         /// <returns></returns>
         bool Update(Attributes data);
+        /// <summary>
+        /// Lấy ra 1 thuộc tính
+        /// </summary>
+        /// <param name="attributeID"></param>
+        /// <returns></returns>
+        Attributes Get(int attributeID);
     }
 }

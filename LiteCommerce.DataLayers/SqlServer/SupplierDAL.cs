@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 namespace LiteCommerce.DataLayers.SqlServer
 {
     /// <summary>
-    /// 
+    /// các chức năng có liên quan đến supplier
     /// </summary>
     public class SupplierDAL : ISupplierDAL
     {
@@ -25,7 +25,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
         /// <summary>
-        /// 
+        /// thêm supplier SQL
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -82,7 +82,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return supplierId;
         }
         /// <summary>
-        /// 
+        /// đếm số lượng supplier SQL
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -110,7 +110,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xóa nhiều supplier SQL
         /// </summary>
         /// <param name="supplierIDs"></param>
         /// <returns></returns>
@@ -141,7 +141,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return countDeleted;
         }
         /// <summary>
-        /// 
+        /// lấy ra supplier SQL
         /// </summary>
         /// <param name="supplierID"></param>
         /// <returns></returns>
@@ -183,7 +183,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// Liệt kê danh sách các supplier SQL
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -240,7 +240,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// cập nhật supplier SQL
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

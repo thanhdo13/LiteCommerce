@@ -10,14 +10,14 @@ using System.Web.Mvc;
 namespace LiteCommerce.Admin.Controllers
 {
     /// <summary>
-    /// 
+    /// cách phân trang điều phối của sản phẩm
     /// </summary>
     [Authorize(Roles = WebUserRoles.DataManagement)]
     public class ProductController : Controller
     {
         // GET: Product
         /// <summary>
-        /// 
+        /// trang chủ của sản phẩm
         /// </summary>
         /// <returns></returns>
         public ActionResult Index(int page = 1, string searchValue = "", int category = 1, int supplier = 1)
@@ -42,6 +42,11 @@ namespace LiteCommerce.Admin.Controllers
             //  viewbag.rowcount = rowcount;
             return View(model);
         }
+        /// <summary>
+        /// hiển thị trang thêm hoặc lấy ra thông tin của 1 sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -67,6 +72,12 @@ namespace LiteCommerce.Admin.Controllers
             }
            
         }
+        /// <summary>
+        /// cập nhật hoặc thêm 1 sản phẩm
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="uploadFile"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Product model, HttpPostedFileBase uploadFile)
         {
@@ -82,7 +93,6 @@ namespace LiteCommerce.Admin.Controllers
             }
             try
             {
-                //TODO: kiem tra tinh hop le cua du lieu 
                 if (string.IsNullOrEmpty(model.ProductName))
                     ModelState.AddModelError("ProductName", "ProductName expected");
                 if (string.IsNullOrEmpty(model.QuantityPerUnit))
@@ -96,7 +106,6 @@ namespace LiteCommerce.Admin.Controllers
                     ViewBag.Title = model.SupplierID == 0 ? "Create new Product" : "Edit a Product";
                     return View(model);
                 }
-                //TODO: Luu
                 if (model.ProductID == 0)
                     {
                          CataLogBLL.AddProduct(model);
@@ -115,7 +124,7 @@ namespace LiteCommerce.Admin.Controllers
 
         }
         /// <summary>
-        /// Xoa nhieu supplier
+        /// Xoa nhieu sản phẩm
         /// </summary>
         /// <param name="productIDs"></param>
         /// <returns></returns>

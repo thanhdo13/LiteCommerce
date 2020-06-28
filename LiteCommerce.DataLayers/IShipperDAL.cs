@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
+    /// <summary>
+    /// interface của shipper
+    /// </summary>
     public interface IShipperDAL
     {
         /// <summary>
@@ -18,13 +21,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         List<Shipper> List(int page, int pageSize, string searchValue);
         /// <summary>
-        /// 
+        /// đếm số lượng tìm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         int Count(string searchValue);
         /// <summary>
-        /// 
+        /// lấy ra 1 shipper bằng shipperID 
         /// </summary>
         /// <param name="shipperID"></param>
         /// <returns></returns>
@@ -37,13 +40,13 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         int Add(Shipper data);
         /// <summary>
-        /// 
+        /// cập nhật lại shipper
         /// </summary>
         /// <param name="shipperID"></param>
         /// <returns></returns>
         bool Update(Shipper shipperID);
         /// <summary>
-        /// 
+        /// xóa nhiều shipper
         /// </summary>
         /// <param name="shipperIDs"></param>
         /// <returns></returns>

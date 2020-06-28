@@ -7,6 +7,9 @@ using LiteCommerce.DomainModels;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+    /// <summary>
+    /// Các chức năng liên quan đến tài khoản của khách hàng
+    /// </summary>
     public class CustomerUserAccountDAL : IUserAccountDAL
     {
         private string connectionString;
@@ -32,9 +35,15 @@ namespace LiteCommerce.DataLayers.SqlServer
                 Roles = "Roles"
             };
         }
-
+        /// <summary>
+        /// thay đổi mật khẩu cho khách hàng
+        /// </summary>
+        /// <param name="Password"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool ChangePassword(string Password,string email)
         {
+            //TODO: Thay đổi mật khẩu
             throw new NotImplementedException();
         }
     }

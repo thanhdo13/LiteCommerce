@@ -43,6 +43,7 @@
     <Compile Include="IAttributeDAL.cs" />
     <Compile Include="ICategoryDAL.cs" />
     <Compile Include="ICustomerDAL.cs" />
+    <Compile Include="IDashboard.cs" />
     <Compile Include="IEmployeeDAL.cs" />
     <Compile Include="IHelperDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="SqlServer\CategoryDAL.cs" />
     <Compile Include="SqlServer\CustomerDAL.cs" />
     <Compile Include="SqlServer\CustomerUserAccountDAL.cs" />
+    <Compile Include="SqlServer\DashboardDAL.cs" />
     <Compile Include="SqlServer\EmployeeDAL.cs" />
     <Compile Include="SqlServer\EmployeeUserAccountDAL.cs" />
     <Compile Include="SqlServer\HelperDAL.cs" />
